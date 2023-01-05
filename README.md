@@ -1,4 +1,4 @@
-TrueOrFakeNews
+MLOPS project description - Classifying real and fake news
 ==============================
 
 **Overall goal of the project**\
