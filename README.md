@@ -1,3 +1,7 @@
+Magnus Guldberg Petersen (s204075)\
+Benjamin Fazal (s200431)\
+Kasper Helverskov Petersen (s203294)
+
 MLOPS project description - Classifying real and fake news
 ==============================
 
@@ -16,4 +20,4 @@ We are going to use a dataset obtained from kaggle.com (https://www.kaggle.com/d
 The dataset contains the following attributes: title, text, subject and date.
 
 **What deep learning models to you expect to use:**\
-We intend to use some of the pre-trained models from the Transformer framework. We have not yet determined which.
+We intend to use some of the pre-trained models from the Transformer framework. We have not yet determined which, but looked at a Transformer-based language model, RoBERTa, which was intended for sequence classification. 
