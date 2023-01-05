@@ -3,6 +3,7 @@ import click
 import logging
 from pathlib import Path
 from dotenv import find_dotenv, load_dotenv
+import pandas as pd
 
 
 @click.command()
@@ -14,6 +15,11 @@ def main(input_filepath, output_filepath):
     """
     logger = logging.getLogger(__name__)
     logger.info('making final data set from raw data')
+    
+    # load the true.csv dataset from the raw folder (input_filepath)
+    truedata = pd.read_csv('{}/true.csv'.format(input_filepath))
+    
+    
 
 
 if __name__ == '__main__':
