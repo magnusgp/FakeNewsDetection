@@ -12,7 +12,7 @@ Since the Transformers repository from the Huggingface group is focused on NLP m
 So we intend to use some of the pre-trained models on our dataset, and if possible, try to improve performance further.
 
 **What data are you going to run on (initially, may change)**\
-We are going to use a dataset obtained from kaggle.com (link) containing both fake and real news articles. 
+We are going to use a dataset obtained from kaggle.com (https://www.kaggle.com/datasets/clmentbisaillon/fake-and-real-news-dataset?select=Fake.csv&fbclid=IwAR2vaemWRgwEjObp8rx8ZzsVkavwuq0shny9SroYDrqe2J9pls7WAejAnpY) containing both fake and real news articles. 
 The dataset contains the following attributes: title, text, subject and date.
 
 **What deep learning models to you expect to use:**\
