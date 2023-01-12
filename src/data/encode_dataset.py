@@ -5,23 +5,16 @@ from pathlib import Path
 from dotenv import find_dotenv, load_dotenv
 import pandas as pd
 import numpy as np
-from transformers import RobertaTokenizer, TFRobertaModel
+from transformers import RobertaTokenizer, TFRobertaModel, AutoTokenizer, AutoModel
 from sklearn.model_selection import train_test_split
 
 import torch
 
-def tokenize(dataframe, tokenizer, no_token=256):
+def tokenize(dataframe):
     """Tokenizes text from a string into a list of strings (tokens)"""
-    tokenized = dataframe['text'].apply((lambda x: tokenizer.encode(x, add_special_tokens=True)))
-    # pad the tokens
-    padded = np.array([i + [no_token]*(no_token-len(i)) for i in tokenized.values])
-    # create an attention mask
-    attention_mask = np.where(padded != no_token, 1, 0)
-    # convert to torch tensors
-    input_ids = torch.tensor(padded)  
-    attention_mask = torch.tensor(attention_mask)
-
-    return input_ids, attention_mask
+    # define tokenizer
+    tokenizer = AutoTokenizer.from_pretrained("roberta-base")
+    return tokenizer(dataframe['text'].tolist(), padding=True, truncation=True, return_tensors="pt")
 
 @click.command()
 @click.argument('input_filepath', type=click.Path(exists=True))
@@ -41,18 +34,34 @@ def makedata(input_filepath, output_filepath):
     true = true.assign(label=1)
     false = false.assign(label=0)
     
+    # if one dataset is larger than the other, drop samples so that they are equally large
+    if len(true) > len(false):
+            true = true.sample(n=len(false), random_state=42)
+    else:
+        false = false.sample(n=len(true), random_state=42)
+    
+    # present lengths of true and false datasets
+    print('True dataset length: {}'.format(len(true)))
+    print('False dataset length: {}'.format(len(false)))
+    
+    # concatenate true and false datasets
+    X = pd.concat([true['text'], false['text']], ignore_index=True)
+    y = pd.concat([true['label'], false['label']], ignore_index=True)
+    
     # split the dataset into train and test
-    X_train, X_test, y_train, y_test = train_test_split(true, false, test_size=0.2, random_state=42)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
     
-    # tokenizer
-    tokenizer=RobertaTokenizer.from_pretrained('roberta-base')
+    X_train = tokenize(X_train)
+    X_test = tokenize(X_test)
     
-    X_train = tokenize(X_train, tokenizer)
-    X_test = tokenize(X_test, tokenizer)
+    y_train = torch.tensor(np.asarray(y_train, dtype='int32'))
+    y_test = torch.tensor(np.asarray(y_test, dtype='int32'))
     
-    y_train = np.asarray(y_train, dtype='int32')
-    y_test = np.asarray(y_test, dtype='int32')
-    
+    # save the test and train datasets to data/processed folder
+    torch.save(X_train, '{}/X_train.pt'.format(output_filepath))
+    torch.save(X_test, '{}/X_test.pt'.format(output_filepath))
+    torch.save(y_train, '{}/y_train.pt'.format(output_filepath))
+    torch.save(y_test, '{}/y_test.pt'.format(output_filepath))
     
     
 if __name__ == '__main__':
