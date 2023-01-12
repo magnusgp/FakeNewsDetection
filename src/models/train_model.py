@@ -68,8 +68,3 @@ for epoch in range(nepoch):
         best_val_acc = val_acc
         best_model_state = deepcopy(model.state_dict())
     print("\n\n")
-
-
-
-
-
