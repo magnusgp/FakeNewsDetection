@@ -3,7 +3,7 @@ from src.data.make_dataset import trainloader, testloader
 from accelerate import Accelerator
 from datasets import load_metric
 from accelerate import Accelerator
-from train_model import model
+from src.models.train_model import model
 
 # Load metric (f1 and accuracy)
 f1 = load_metric("f1")
@@ -30,3 +30,4 @@ def validate(model):
 
 if __name__ == "__main__":
     validate(model)
+    
