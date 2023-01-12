@@ -74,9 +74,9 @@ def makedata(input_filepath, output_filepath):
     del df['date']
 
     nltk.download('stopwords')
-    stop = set(stopwords.words('english'))
+    #stop = set(stopwords.words('english'))
     punctuation = list(string.punctuation)
-    stop.update(punctuation)
+    #stop.update(punctuation)
 
     def strip_html(text):
         soup = BeautifulSoup(text, "html.parser")
@@ -90,6 +90,7 @@ def makedata(input_filepath, output_filepath):
     def remove_between_square_brackets(text):
         return re.sub(r'http\S+', '', text)
 
+    """
     # Removing the stopwords from text
     def remove_stopwords(text):
         final_text = []
@@ -97,12 +98,13 @@ def makedata(input_filepath, output_filepath):
             if i.strip().lower() not in stop:
                 final_text.append(i.strip())
         return " ".join(final_text)
+    """
 
     # Removing the noisy text
     def denoise_text(text):
         text = strip_html(text)
         text = remove_between_square_brackets(text)
-        text = remove_stopwords(text)
+        #text = remove_stopwords(text)
         return text
 
     # Apply function on review column
