@@ -20,3 +20,4 @@ The dataset contains the following attributes: title, text, subject and date and
 
 **What deep learning models to you expect to use:**\
 We intend to use some of the pre-trained models from the Transformer framework. We have not yet determined which, but looked at a Transformer-based language model, RoBERTa, which was intended for sequence classification. 
+
