@@ -176,8 +176,11 @@ def makedata(input_filepath, output_filepath):
     #    tokenizer = AutoTokenizer.from_pretrained("roberta-base")
     #    return tokenizer(dataframe['text'].tolist(), padding=True, truncation=True, return_tensors="pt")
 
-    # X_train = tokenize(X_train)
-    # X_test = tokenize(X_test)
+    #X_train = tokenize(X_train)
+    #X_test = tokenize(X_test)
+
+    X_train = np.asarray(X_train)
+    X_test = np.asarray(X_test)
 
     y_train = np.asarray(y_train, dtype='int32')
     y_test = np.asarray(y_test, dtype='int32')
@@ -185,8 +188,8 @@ def makedata(input_filepath, output_filepath):
 
     ### Convert to pytorch arrays
 
-    y_train = torch.tensor(np.asarray(y_train, dtype='int32'))
-    y_test = torch.tensor(np.asarray(y_test, dtype='int32'))
+    #y_train = torch.tensor(np.asarray(y_train, dtype='int32'))
+    #y_test = torch.tensor(np.asarray(y_test, dtype='int32'))
 
     # TODO: convert both datasets into a torch tensor
     # true_tensor = y_train[y_train==0]
@@ -208,10 +211,16 @@ def makedata(input_filepath, output_filepath):
     
     # split the dataset randomly into a training and test set with 0.2 test size
     # trainset, testset = torch.utils.data.random_split(dataset, [int(0.8*len(dataset)), int(0.2*len(dataset))])
+
+    np.asarray()
     
     # concatenate the training and test sets
-    trainset = torch.utils.data.TensorDataset(X_train, y_train)
-    testset = torch.utils.data.TensorDataset(X_test, y_test)
+    trainset = torch.utils.data.TensorDataset(torch.from_numpy(X_train).float(), torch.from_numpy(y_train).long())
+    testset = torch.utils.data.TensorDataset(torch.from_numpy(X_test).float(), torch.from_numpy(y_test).long())
+
+    # print sizes of trainset and testset
+    print("Size of training set: {}".format(trainset.size()))
+    print("Size of test set: {}".format(testset.size()))
 
     # save the test and train datasets to data/processed folder
     #torch.save(X_train, '{}/X_train.pt'.format(output_filepath))
