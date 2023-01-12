@@ -211,8 +211,6 @@ def makedata(input_filepath, output_filepath):
     
     # split the dataset randomly into a training and test set with 0.2 test size
     # trainset, testset = torch.utils.data.random_split(dataset, [int(0.8*len(dataset)), int(0.2*len(dataset))])
-
-    np.asarray()
     
     # concatenate the training and test sets
     trainset = torch.utils.data.TensorDataset(torch.from_numpy(X_train).float(), torch.from_numpy(y_train).long())
