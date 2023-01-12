@@ -1,7 +1,7 @@
 # local package
 -e .
 
-# external requirements
+# external requirements -
 click
 Sphinx
 coverage
