@@ -1,5 +1,4 @@
 import torch
-from src.data.make_dataset import trainloader, testloader
 from accelerate import Accelerator
 from datasets import load_metric
 from accelerate import Accelerator
@@ -14,6 +13,8 @@ accelerator = Accelerator()
 
 #Validate model 
 def validate(model):
+    testset = torch.load('data/processed/testset.pt')
+    testloader = torch.utils.data.DataLoader(testset, batch_size=64, shuffle=True)
     for batch in testloader:
         #batch = {k:v.cuda() for k,v in batch.items()}
         outputs = model(**batch)
