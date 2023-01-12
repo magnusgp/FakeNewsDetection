@@ -206,12 +206,19 @@ def makedata(input_filepath, output_filepath):
     
     # split the dataset randomly into a training and test set with 0.2 test size
     # trainset, testset = torch.utils.data.random_split(dataset, [int(0.8*len(dataset)), int(0.2*len(dataset))])
+    
+    # concatenate the training and test sets
+    trainset = torch.utils.data.TensorDataset(X_train, y_train)
+    testset = torch.utils.data.TensorDataset(X_test, y_test)
 
     # save the test and train datasets to data/processed folder
-    torch.save(X_train, '{}/X_train.pt'.format(output_filepath))
-    torch.save(X_test, '{}/X_test.pt'.format(output_filepath))
-    torch.save(y_train, '{}/y_train.pt'.format(output_filepath))
-    torch.save(y_test, '{}/y_test.pt'.format(output_filepath))
+    #torch.save(X_train, '{}/X_train.pt'.format(output_filepath))
+    #torch.save(X_test, '{}/X_test.pt'.format(output_filepath))
+    #torch.save(y_train, '{}/y_train.pt'.format(output_filepath))
+    #torch.save(y_test, '{}/y_test.pt'.format(output_filepath))
+    
+    torch.save(trainset, '{}/trainset.pt'.format(output_filepath))
+    torch.save(testset, '{}/testset.pt'.format(output_filepath))
 
 if __name__ == '__main__':
     log_fmt = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
@@ -225,10 +232,9 @@ if __name__ == '__main__':
     load_dotenv(find_dotenv())
 
     # call the main function with data in from the raw folder and out to the processed folder
-    makedata(r"C:/Users/arian/OneDrive/Desktop/Kunstig_Intelligens_og_Data/MLOps/Projekt/FakeNewsDetection/data/raw",
-             r"C:/Users/arian/OneDrive/Desktop/Kunstig_Intelligens_og_Data/MLOps/Projekt/FakeNewsDetection/data/processed")
+    makedata(r"data/raw",
+             r"data/processed")
 
-    
 
 if __name__ == '__main__':
     log_fmt = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
