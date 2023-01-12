@@ -13,3 +13,5 @@ pyaml>=5.3.1
 matplotlib
 pandas
 transformers
+accelerate
+datasets
