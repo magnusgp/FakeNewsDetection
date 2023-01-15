@@ -2,6 +2,7 @@
 import torch
 import click
 import logging
+import wget
 from pathlib import Path
 from dotenv import find_dotenv, load_dotenv
 import pandas as pd
@@ -24,6 +25,12 @@ def makedata(input_filepath, output_filepath, autoTokenizer=True):
     """
     logger = logging.getLogger(__name__)
     logger.info('making final data set from raw data')
+
+    if '{}/true.csv'.format(input_filepath) not in input_filepath:
+        wget.download("Find URL.")
+    if '{}/fake.csv'.format(input_filepath) not in input_filepath
+        wget.download("Find URL.")
+
 
     # load the true.csv dataset from the raw folder (input_filepath)
     true = pd.read_csv('{}/true.csv'.format(input_filepath), delimiter=',')
