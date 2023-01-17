@@ -46,5 +46,3 @@ if __name__ == '__main__':
 
     # call the main function with data in from the raw folder and out to the processed folder
     makedata()
-    # makedata(r"C:/Users/arian/OneDrive/Desktop/Kunstig_Intelligens_og_Data/MLOps/Projekt/FakeNewsDetection/data/raw",
-    #         r"C:/Users/arian/OneDrive/Desktop/Kunstig_Intelligens_og_Data/MLOps/Projekt/FakeNewsDetection/data/processed")
