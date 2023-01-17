@@ -28,10 +28,11 @@ def train(accelerator = Accelerator(), lr=5e-5, nepoch=10, nsteps=214):
 
     # Preparing model 
     trainset = torch.load('data/processed/trainset.pt')
-    trainset.set_format(type='torch', columns=['input_ids', 'attention_mask', 'label'])
+    # TODO: fix this so that the trainset actually contains these columns
+    trainset.set_format(type='torch', columns=['input_ids', 'token_type_ids', 'attention_mask', 'categories'])
     trainloader = torch.utils.data.DataLoader(trainset, batch_size=64, shuffle=True)
     model, optimizer, trainloader = accelerator.prepare(model, optim, trainloader)
-    testloader = accelerator.prepare(testloader)
+    #testloader = accelerator.prepare(testloader)
     
     best_val_acc = 0
 
