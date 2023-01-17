@@ -6,7 +6,7 @@ import torch
 import numpy as np
 from datasets import load_metric 
 from copy import deepcopy
-from src.data.make_dataset import trainx, testx
+#from src.data.make_dataset import trainEx, testEx
 from predict_model import *
 import wandb
 
@@ -36,7 +36,7 @@ def train(accelerator = Accelerator(), lr=5e-5, nepoch=10, nsteps=214):
     acc = load_metric("accuracy")
 
     # Preparing model 
-    trainset = torch.load('data/processed/trainx.pt')
+    trainset = torch.load('data/processed/trainEx.pt')
     # TODO: fix this so that the trainset actually contains these columns
     trainset.set_format(type='torch', columns=['input_ids', 'token_type_ids', 'attention_mask', 'categories'])
     trainloader = torch.utils.data.DataLoader(trainset, batch_size=64, shuffle=True)

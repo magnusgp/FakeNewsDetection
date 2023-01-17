@@ -14,7 +14,7 @@ accelerator = Accelerator()
 def validate():
     checkpoint="roberta-base"
     model = AutoModelForSequenceClassification.from_pretrained(checkpoint, num_labels=2)
-    testset = torch.load('data/processed/testX.pt')
+    testset = torch.load('data/processed/testEx.pt')
     testloader = torch.utils.data.DataLoader(testset, batch_size=64, shuffle=True)
     for batch in testloader:
         #batch = {k:v.cuda() for k,v in batch.items()}
