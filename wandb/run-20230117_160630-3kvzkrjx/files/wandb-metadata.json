@@ -1,0 +1,42 @@
+{
+    "os": "macOS-10.16-x86_64-i386-64bit",
+    "python": "3.9.7",
+    "heartbeatAt": "2023-01-17T15:06:33.637725",
+    "startedAt": "2023-01-17T15:06:30.375857",
+    "docker": null,
+    "cuda": null,
+    "args": [],
+    "state": "running",
+    "program": "/Users/benj3542/Desktop/Uni/Noter/Semester_5/MLOps/FakeNewsDetection/src/models/train_model.py",
+    "codePath": "src/models/train_model.py",
+    "git": {
+        "remote": "https://github.com/magnusgp/FakeNewsDetection.git",
+        "commit": "31f679ef89667f6604766cdf2e4ce0bc13c18e3c"
+    },
+    "email": "s200431@student.dtu.dk",
+    "root": "/Users/benj3542/Desktop/Uni/Noter/Semester_5/MLOps/FakeNewsDetection",
+    "host": "Benjamins-MacBook-Pro.local",
+    "username": "benj3542",
+    "executable": "/Users/benj3542/mlops_project/bin/python3",
+    "cpu_count": 8,
+    "cpu_count_logical": 8,
+    "cpu_freq": {
+        "current": 2400,
+        "min": 2400,
+        "max": 2400
+    },
+    "cpu_freq_per_core": [
+        {
+            "current": 2400,
+            "min": 2400,
+            "max": 2400
+        }
+    ],
+    "disk": {
+        "total": 228.27386474609375,
+        "used": 14.681140899658203
+    },
+    "memory": {
+        "total": 8.0
+    }
+}
