@@ -28,7 +28,7 @@ def makedata(input_filepath, output_filepath, autoTokenizer=True):
 
     if '{}/true.csv'.format(input_filepath) not in input_filepath:
         wget.download("Find URL.")
-    if '{}/fake.csv'.format(input_filepath) not in input_filepath
+    if '{}/fake.csv'.format(input_filepath) not in input_filepath:
         wget.download("Find URL.")
 
 
