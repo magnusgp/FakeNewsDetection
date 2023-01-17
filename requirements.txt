@@ -21,5 +21,4 @@ nltk
 sklearn
 scikit-learn
 fastapi
-"uvicorn[standard]"
-
+uvicorn[standard]

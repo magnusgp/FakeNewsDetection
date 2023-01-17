@@ -1,5 +1,5 @@
 steps:
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'gcr.io/kinetic-song-374310/testing', '.']
+  args: ['build', '-t', 'gcr.io/trueorfakenews/testing', '.']
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'gcr.io/kinetic-song-374310/testing']
+  args: ['push', 'gcr.io/trueorfakenews/testing']
