@@ -12,6 +12,16 @@ import pandas as pd
 import numpy as np
 import evaluate
 
+wandb.init(project="mlops_fake_news", entity="ai_mark")
+"""
+wandb.config = {
+  "lr": 5e-5,
+  "nepochs": 10,
+  "nsteps": 214
+}
+"""
+
+
 def compute_metrics(eval_pred):
     accuracy = evaluate.load("accuracy")
     predictions, labels = eval_pred
@@ -66,5 +76,4 @@ def train(accelerator = Accelerator(), lr=5e-5, nepoch=10, nsteps=214):
     
 
 if __name__ == "__main__":
-    wandb.init(project="mlops_fake_news", entity="ai_mark")
     train()
