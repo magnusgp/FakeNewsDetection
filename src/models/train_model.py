@@ -6,17 +6,19 @@ import torch
 import numpy as np
 from datasets import load_metric 
 from copy import deepcopy
-#from src.data.make_dataset import trainEx, testEx
+##from src.data.make_dataset import trainEx, testEx
 from predict_model import *
 import wandb
+import pandas as pd
 
-wandb.init(project="mlops_fake_news", entity="ai_mark")
-
+#wandb.init(project="mlops_fake_news", entity="ai_mark")
+"""
 wandb.config = {
   "lr": 5e-5,
   "nepochs": 10,
   "nsteps": 214
 }
+"""
 
 def train(accelerator = Accelerator(), lr=5e-5, nepoch=10, nsteps=214):
     # load the pretrained model from a checkpoint
@@ -36,9 +38,10 @@ def train(accelerator = Accelerator(), lr=5e-5, nepoch=10, nsteps=214):
     acc = load_metric("accuracy")
 
     # Preparing model 
-    trainset = torch.load('data/processed/trainEx.pt')
-    # TODO: fix this so that the trainset actually contains these columns
-    trainset.set_format(type='torch', columns=['input_ids', 'token_type_ids', 'attention_mask', 'categories'])
+    dataset = torch.load('data/processed/dataset.pt')
+    trainset = dataset['train']
+    trainset = trainset.remove_columns(["text"]).rename_column('label', "labels").with_format("torch")
+    trainset.select(range(0, 10))
     trainloader = torch.utils.data.DataLoader(trainset, batch_size=64, shuffle=True)
     model, optimizer, trainloader = accelerator.prepare(model, optim, trainloader)
     #testloader = accelerator.prepare(testloader)
@@ -52,11 +55,13 @@ def train(accelerator = Accelerator(), lr=5e-5, nepoch=10, nsteps=214):
         av_epoch_loss=0
         progress_bar = tqdm(range(nsteps))
         for batch in trainloader:
+            print("Batch number: ", batch)
             #batch = {k:v.cuda() for k,v in batch.items()}
             optimizer.zero_grad()
+            print("Im stuck when getting the outputs from the model")
             outputs = model(**batch)
             loss = outputs.loss
-            wandb.log({"loss": loss})
+            #wandb.log({"loss": loss})
             av_epoch_loss += loss
             #loss.backward()
             accelerator.backward(loss)

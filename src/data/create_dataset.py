@@ -2,23 +2,31 @@
 import torch
 import click
 import logging
+import wget
 from pathlib import Path
 from dotenv import find_dotenv, load_dotenv
-from transformers import AutoTokenizer
+import pandas as pd
+import numpy as np
+import nltk
 from datasets import load_dataset
+from sklearn.model_selection import train_test_split
+from transformers import RobertaTokenizer, AutoTokenizer
+from utils import strip_html, remove_between_square_brackets, remove_between_square_brackets, remove_stopwords ,denoise_text, roberta_encode, tokenize
+
 
 MAX_LEN = 256
 MODEL_NAME = 'roberta-base'
 
-@click.command()
-@click.argument('input_filepath', type=click.Path(exists=True))
-@click.argument('output_filepath', type=click.Path())
-def makedata(input_filepath, output_filepath):
+#@click.command()
+#@click.argument('input_filepath', type=click.Path(exists=True))
+#@click.argument('output_filepath', type=click.Path())
+def makedata(input_filepath, output_filepath, autoTokenizer=True):
     """ Runs data processing scripts to turn raw data from (../raw) into
         cleaned data ready to be analyzed (saved in ../processed).
     """
     logger = logging.getLogger(__name__)
     logger.info('making final data set from raw data')
+
 
     # load the true.csv dataset from the raw folder (input_filepath)
     dataset = load_dataset('csv', data_files='{}/dataset.csv'.format(input_filepath))['train']
@@ -45,6 +53,4 @@ if __name__ == '__main__':
     load_dotenv(find_dotenv())
 
     # call the main function with data in from the raw folder and out to the processed folder
-    makedata()
-    # makedata(r"C:/Users/arian/OneDrive/Desktop/Kunstig_Intelligens_og_Data/MLOps/Projekt/FakeNewsDetection/data/raw",
-    #         r"C:/Users/arian/OneDrive/Desktop/Kunstig_Intelligens_og_Data/MLOps/Projekt/FakeNewsDetection/data/processed")
+    makedata(input_filepath = 'data/raw', output_filepath = 'data/processed')

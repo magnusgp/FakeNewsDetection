@@ -73,7 +73,8 @@ be installed with `pip install click markdown`.
 >
 > Answer:
 
-*We chose to work with the open-source Transformers framework from the Hugging Face organization.*
+*We chose to work with the open-source Transformers framework from the Hugging Face organization. We chose to do so, because the framework includes a number of pretrained models for text classification, which we planned to utilize to achieve the goal of the project. For this purpose, we chose the RoBERTa model, since it has been shown to perform well on a variety of NLP tasks. Moreover, since we chose the RoBERTa model, we also utilized the RobertaTokenizer in order to prepare the inputs
+for the model in the make_dataset.py file. Finally, we chose the Adam optimizer, also imported from the transformers framework, as the optimizer for training (fine tuning) the model. *
 
 ## Coding environment
 
@@ -92,7 +93,13 @@ be installed with `pip install click markdown`.
 >
 > Answer:
 
---- question 4 fill here ---
+For dependency management, we used a requirements.txt file. This file includes all the manually added dependencies needed for the project as well as auto-generated dependencies found by the setuptools package "setup". To install the dependencies, one would run the command:
+
+```pip install -r requirements.txt```
+
+Furthermore, to run the unittests written for the project locally, one would run the command:
+
+```pip install -r requirements_tests.txt```
 
 ### Question 5
 
@@ -160,6 +167,7 @@ be installed with `pip install click markdown`.
 > *addition to the main branch. To merge code we ...*
 >
 > Answer:
+We utilized branches in our project – each member had a separate branch. By doing so, we secured that as we coded our individual problems didn’t affect the other group members. Naturally, we had to use push and pull request to update our individual branches, and finally merge to create the complete dictionary on the main branch. As with all projects which utilize git, we were met with a plethora of merge conflicts – to solve this, we used the VS code extension “Git Graph” to keep track of the development of the individual branches. This helped us understand the value which git hold (and hereby the usage of branches), and without it, we doubt a final project could have emerged.  
 
 --- question 9 fill here ---
 
