@@ -166,6 +166,7 @@ Furthermore, to run the unittests written for the project locally, one would run
 > *addition to the main branch. To merge code we ...*
 >
 > Answer:
+We utilized branches in our project – each member had a separate branch. By doing so, we secured that as we coded our individual problems didn’t affect the other group members. Naturally, we had to use push and pull request to update our individual branches, and finally merge to create the complete dictionary on the main branch. As with all projects which utilize git, we were met with a plethora of merge conflicts – to solve this, we used the VS code extension “Git Graph” to keep track of the development of the individual branches. This helped us understand the value which git hold (and hereby the usage of branches), and without it, we doubt a final project could have emerged.  
 
 --- question 9 fill here ---
 
