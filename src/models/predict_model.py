@@ -12,7 +12,7 @@ accelerator = Accelerator()
 
 #Validate model 
 def validate(model):
-    testset = torch.load('data/processed/testset.pt')
+    testset = torch.load('data/processed/testx.pt')
     testloader = torch.utils.data.DataLoader(testset, batch_size=64, shuffle=True)
     for batch in testloader:
         #batch = {k:v.cuda() for k,v in batch.items()}
