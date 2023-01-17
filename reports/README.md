@@ -49,7 +49,7 @@ be installed with `pip install click markdown`.
 >
 > Answer:
 
---- question 1 fill here ---
+*11*
 
 ### Question 2
 > **Enter the study number for each member in the group**
@@ -60,7 +60,7 @@ be installed with `pip install click markdown`.
 >
 > Answer:
 
---- question 2 fill here ---
+*s203294, s204075, s200431, (Arian STUDIENUMMER)*
 
 ### Question 3
 > **What framework did you choose to work with and did it help you complete the project?**
@@ -73,7 +73,7 @@ be installed with `pip install click markdown`.
 >
 > Answer:
 
---- question 3 fill here ---
+*We chose to work with the open-source Transformers framework from the Hugging Face organization.*
 
 ## Coding environment
 

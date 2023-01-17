@@ -1,6 +1,9 @@
-Magnus Guldberg Petersen (s204075)\
+Arian Dapouyeh (s204158)\
 Benjamin Fazal (s200431)\
 Kasper Helverskov Petersen (s203294)
+Magnus Guldberg Petersen (s204075)\
+
+
 
 MLOPS project description - Classifying real and fake news
 ==============================
