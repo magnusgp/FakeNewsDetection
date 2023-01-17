@@ -11,6 +11,7 @@ import wandb
 import pandas as pd
 import numpy as np
 import evaluate
+import hydra
 
 def compute_metrics(eval_pred):
     accuracy = evaluate.load("accuracy")
@@ -18,7 +19,8 @@ def compute_metrics(eval_pred):
     predictions = np.argmax(predictions, axis=1)
     return accuracy.compute(predictions=predictions, references=labels)
 
-def train(accelerator = Accelerator(), lr=5e-5, nepoch=10, nsteps=214):
+
+def train(accelerator = Accelerator(), lr=2e-5, nepoch=10, nsteps=214):
     id2label = {0: "FAKE", 1: "REAL"}
     label2id = {"FAKE": 0, "REAL": 1}
     # load the pretrained model from a checkpoint
@@ -42,10 +44,10 @@ def train(accelerator = Accelerator(), lr=5e-5, nepoch=10, nsteps=214):
     output_dir="models/roberta-base",
     report_to="wandb",
     run_name="roberta-base",
-    learning_rate=2e-5,
+    learning_rate=lr,
     per_device_train_batch_size=16,
     per_device_eval_batch_size=16,
-    num_train_epochs=2,
+    num_train_epochs=nepoch,
     weight_decay=0.01,
     evaluation_strategy="epoch",
     save_strategy="epoch",
