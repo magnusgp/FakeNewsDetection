@@ -1,7 +1,6 @@
 import torch
 from accelerate import Accelerator
 from datasets import load_metric
-from accelerate import Accelerator
 from src.models.train_model import model
 
 # Load metric (f1 and accuracy)

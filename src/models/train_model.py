@@ -7,13 +7,13 @@ import numpy as np
 from datasets import load_metric 
 from copy import deepcopy
 #from src.data.make_dataset import trainloader, testloader
-from src.models.predict_model import validate
+#from src.models.predict_model import validate
 
-# Define model 
-checkpoint="roberta-base"
-model = AutoModelForSequenceClassification.from_pretrained(checkpoint, num_labels=2)
-
-def train(accelerator, lr=5e-5, nepoch=10, nsteps=214):
+def train(accelerator = Accelerator(), lr=5e-5, nepoch=10, nsteps=214):
+    # load the pretrained model from a checkpoint
+    checkpoint="roberta-base"
+    model = AutoModelForSequenceClassification.from_pretrained(checkpoint, num_labels=2)
+    
     # Define optimizer
     optim = AdamW(model.parameters(), lr=5e-5)
 
@@ -28,6 +28,7 @@ def train(accelerator, lr=5e-5, nepoch=10, nsteps=214):
 
     # Preparing model 
     trainset = torch.load('data/processed/trainset.pt')
+    trainset.set_format(type='torch', columns=['input_ids', 'attention_mask', 'label'])
     trainloader = torch.utils.data.DataLoader(trainset, batch_size=64, shuffle=True)
     model, optimizer, trainloader = accelerator.prepare(model, optim, trainloader)
     testloader = accelerator.prepare(testloader)
@@ -60,9 +61,14 @@ def train(accelerator, lr=5e-5, nepoch=10, nsteps=214):
         f_res = f1.compute()["f1"]
         print(f"Training F1-score: {f_res:.2f}")
         model.eval()
+        """
         val_acc = validate(model)
         if val_acc > best_val_acc:
             print("Achieved best validation accuracy so far. Saving model.")
             best_val_acc = val_acc
             best_model_state = deepcopy(model.state_dict())
         print("\n\n")
+        """
+
+if __name__ == "__main__":
+    train()
