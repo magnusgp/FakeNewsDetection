@@ -37,8 +37,8 @@ def train(accelerator = Accelerator(), lr=2e-5, nepoch=10, nsteps=214):
     testset = dataset['test']
     testset = testset.remove_columns(["text"]).rename_column('label', "labels").with_format("torch")
     # TODO: remove this, this is only to test the code
-    trainset = trainset.select(range(0, 10))
-    testset = testset.select(range(0, 10))
+    trainset = trainset.select(range(0, 100))
+    testset = testset.select(range(0, 100))
     
     training_args = TrainingArguments(
     output_dir="models/roberta-base",
@@ -68,5 +68,5 @@ def train(accelerator = Accelerator(), lr=2e-5, nepoch=10, nsteps=214):
     
 
 if __name__ == "__main__":
-    wandb.init(project="mlops_fake_news", entity="ai_mark")
+    #wandb.init(project="mlops_fake_news", entity="ai_mark")
     train()
