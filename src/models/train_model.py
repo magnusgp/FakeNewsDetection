@@ -7,7 +7,7 @@ import numpy as np
 from datasets import load_metric 
 from copy import deepcopy
 #from src.data.make_dataset import trainloader, testloader
-from src.models.predict_model import validate
+from predict_model import *
 
 # Define model 
 checkpoint="roberta-base"
@@ -19,7 +19,7 @@ def train(accelerator, lr=5e-5, nepoch=10, nsteps=214):
 
     # Accelerator pt.2
     device = accelerator.device
-    model=model.to(device)
+    model = model.to(device)
     print("We are using the following accelerator:" " ", device)
 
     # Load metric (f1 and accuracy)
@@ -66,3 +66,7 @@ def train(accelerator, lr=5e-5, nepoch=10, nsteps=214):
             best_val_acc = val_acc
             best_model_state = deepcopy(model.state_dict())
         print("\n\n")
+
+if __name__ == "__main__":
+    accelerator = Accelerator()
+    train(accelerator)

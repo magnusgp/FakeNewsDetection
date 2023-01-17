@@ -50,10 +50,10 @@ We intend to use some of the pre-trained models from the Transformer framework. 
 * [ ] Write unit tests related to model construction and or model training
 * [ ] Calculate the coverage.
 * [x] Get some continuous integration running on the github repository
-* [x] Create a data storage in GCP Bucket for you data and preferable link this with your data git version control setup
+* [x] Create a data storage in GCP Bucket for you data and preferable link this with your data git version control setup 
 * [ ] Create a trigger workflow for automatically building your docker images
 * [ ] Get your model training in GCP using either the Engine or Vertex AI
-* [ ] Create a FastAPI application that can do inference using your model
+* [x] Create a FastAPI application that can do inference using your model
 * [ ] If applicable, consider deploying the model locally using torchserve
 * [ ] Deploy your model in GCP using either Functions or Run as the backend
 

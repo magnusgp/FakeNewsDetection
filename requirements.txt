@@ -18,4 +18,8 @@ accelerate
 datasets
 bs4 
 nltk
+sklearn
+scikit-learn
+fastapi
+"uvicorn[standard]"
 
