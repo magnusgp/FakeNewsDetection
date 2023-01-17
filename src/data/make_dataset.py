@@ -6,6 +6,7 @@ from pathlib import Path
 from dotenv import find_dotenv, load_dotenv
 from transformers import AutoTokenizer
 from datasets import load_dataset
+from src.data.csveditor import editcsv
 
 MAX_LEN = 256
 MODEL_NAME = 'roberta-base'
@@ -20,7 +21,11 @@ def makedata(input_filepath, output_filepath):
     logger = logging.getLogger(__name__)
     logger.info('making final data set from raw data')
 
-    # load the true.csv dataset from the raw folder (input_filepath)
+    # load the dataset from the raw folder (input_filepath)
+    # if the dataset does not exist, create it
+    if '{}/dataset.csv'.format(input_filepath) not in input_filepath:
+        editcsv()
+        
     dataset = load_dataset('csv', data_files='{}/dataset.csv'.format(input_filepath))['train']
     
     dataset = dataset.train_test_split(test_size=0.2, shuffle=True)
