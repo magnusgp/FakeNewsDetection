@@ -22,3 +22,4 @@ sklearn
 scikit-learn
 fastapi
 uvicorn[standard]
+wandb

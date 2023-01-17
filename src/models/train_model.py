@@ -8,6 +8,15 @@ from datasets import load_metric
 from copy import deepcopy
 #from src.data.make_dataset import trainloader, testloader
 from predict_model import *
+import wandb
+
+wandb.init(project="mlops_fake_news", entity="ai_mark")
+
+wandb.config = {
+  "lr": 5e-5,
+  "nepochs": 10,
+  "nsteps": 214
+}
 
 def train(accelerator = Accelerator(), lr=5e-5, nepoch=10, nsteps=214):
     # load the pretrained model from a checkpoint
@@ -47,6 +56,7 @@ def train(accelerator = Accelerator(), lr=5e-5, nepoch=10, nsteps=214):
             optimizer.zero_grad()
             outputs = model(**batch)
             loss = outputs.loss
+            wandb.log({"loss": loss})
             av_epoch_loss += loss
             #loss.backward()
             accelerator.backward(loss)
