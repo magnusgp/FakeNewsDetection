@@ -1,7 +1,5 @@
 [core]
-    remote = cloud_storage
+    remote = remote_storage
     autostage = true
 ['remote "remote_storage"']
-    url = gs://fakenewsdetection/
-['remote "cloud_storage"']
     url = gs://fakenewsdetection/

@@ -90,7 +90,6 @@ target/
 /data
 /newsenv
 /models
-/.dvc
 
 # wandb
 /wandb
