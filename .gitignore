@@ -89,6 +89,7 @@ target/
 .mypy_cache/
 /data
 /newsenv
+/models
 
 # wandb
 /wandb
