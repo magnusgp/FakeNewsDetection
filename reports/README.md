@@ -93,9 +93,9 @@ be installed with `pip install click markdown`.
 > Answer:
 
 *For dependency management, we used a requirements.txt file. This file includes all the manually added dependencies needed for the project as well as auto-generated dependencies found by the setuptools package "setup". To install the dependencies, one would run the command 
-''' pip install -r requirements.txt'''
+```pip install -r requirements.txt```
 Furthermore, to run the unittests written for the project locally, one would run the command 
-''' pip install -r requirements_tests.txt'''*
+```pip install -r requirements_tests.txt```*
 
 ### Question 5
 
