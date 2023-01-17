@@ -38,15 +38,10 @@ def train(accelerator = Accelerator(), lr=5e-5, nepoch=10, nsteps=214):
     acc = load_metric("accuracy")
 
     # Preparing model 
-    trainset = torch.load('data/processed/trainEx.pt')
-    trainsettorch = []
-    for i in range(len(trainset['input_word_ids'])):
-        in_tensor = torch.Tensor(trainset['input_word_ids'][i])
-        mask_tensor = torch.Tensor(trainset['input_mask'][i])
-        type_tensor = torch.Tensor(trainset['input_type_ids'][i])
-        label_tensor = torch.Tensor(trainset['labels'][i])
-        trainsettorch.append([in_tensor, mask_tensor, type_tensor, label_tensor])
-    trainsettorch.set_format(type='torch', columns=['input_ids', 'token_type_ids', 'attention_mask', 'labels'])
+    dataset = torch.load('data/processed/dataset.pt')
+    trainset = dataset['train']
+    trainset = trainset.remove_columns(["text"]).rename_column('label', "labels").with_format("torch")
+    trainset.select(range(0, 10))
     trainloader = torch.utils.data.DataLoader(trainset, batch_size=64, shuffle=True)
     model, optimizer, trainloader = accelerator.prepare(model, optim, trainloader)
     #testloader = accelerator.prepare(testloader)
@@ -60,11 +55,13 @@ def train(accelerator = Accelerator(), lr=5e-5, nepoch=10, nsteps=214):
         av_epoch_loss=0
         progress_bar = tqdm(range(nsteps))
         for batch in trainloader:
+            print("Batch number: ", batch)
             #batch = {k:v.cuda() for k,v in batch.items()}
             optimizer.zero_grad()
+            print("Im stuck when getting the outputs from the model")
             outputs = model(**batch)
             loss = outputs.loss
-            wandb.log({"loss": loss})
+            #wandb.log({"loss": loss})
             av_epoch_loss += loss
             #loss.backward()
             accelerator.backward(loss)
