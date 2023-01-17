@@ -73,7 +73,8 @@ be installed with `pip install click markdown`.
 >
 > Answer:
 
-*We chose to work with the open-source Transformers framework from the Hugging Face organization.*
+*We chose to work with the open-source Transformers framework from the Hugging Face organization. We chose to do so, because the framework includes a number of pretrained models for text classification, which we planned to utilize to achieve the goal of the project. For this purpose, we chose the RoBERTa model, since it has been shown to perform well on a variety of NLP tasks. Moreover, since we chose the RoBERTa model, we also utilized the RobertaTokenizer in order to prepare the inputs
+for the model in the make_dataset.py file. Finally, we chose the Adam optimizer, also imported from the transformers framework, as the optimizer for training (fine tuning) the model. *
 
 ## Coding environment
 
