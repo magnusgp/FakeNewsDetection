@@ -16,3 +16,16 @@ pandas
 transformers
 accelerate
 datasets
+<<<<<<< Updated upstream
+=======
+bs4 
+nltk
+sklearn
+scikit-learn
+fastapi
+uvicorn[standard]
+wandb
+evaluate
+hydra-core
+gcloud
+>>>>>>> Stashed changes
