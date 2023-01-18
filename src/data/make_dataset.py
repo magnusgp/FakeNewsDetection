@@ -6,7 +6,7 @@ from pathlib import Path
 from dotenv import find_dotenv, load_dotenv
 from transformers import AutoTokenizer
 from datasets import load_dataset
-from src.data.csveditor import editcsv
+from csveditor import editcsv
 
 MAX_LEN = 256
 MODEL_NAME = 'roberta-base'
