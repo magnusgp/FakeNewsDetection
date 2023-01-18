@@ -32,7 +32,8 @@ def train(config):
     data_collator = DataCollatorWithPadding(tokenizer=tokenizer)
     
     # Preparing model 
-    dataset = torch.load('data/processed/dataset.pt')
+    #dataset = torch.load('data/processed/dataset.pt')
+    dataset = torch.load('/Users/magnus/Desktop/DTU/5semester/MLOPS/TrueOrFakeNews/data/processed/dataset.pt')
     trainset = dataset['train']
     trainset = trainset.remove_columns(["text"]).rename_column('label', "labels").with_format("torch")
     testset = dataset['test']
