@@ -16,7 +16,6 @@ pandas
 transformers
 accelerate
 datasets
-<<<<<<< Updated upstream
 =======
 bs4 
 nltk
@@ -28,4 +27,3 @@ wandb
 evaluate
 hydra-core
 gcloud
->>>>>>> Stashed changes
