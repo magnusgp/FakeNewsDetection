@@ -1,1 +1,1 @@
-print("Code to activate GCP.")
+print("Code to activate GCP")
