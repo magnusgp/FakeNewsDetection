@@ -45,13 +45,14 @@ def train(accelerator = Accelerator(), lr=2e-5, nepoch=10, nsteps=214):
     report_to="wandb",
     run_name="roberta-base",
     learning_rate=lr,
-    per_device_train_batch_size=16,
-    per_device_eval_batch_size=16,
     num_train_epochs=nepoch,
-    weight_decay=0.01,
-    evaluation_strategy="epoch",
-    save_strategy="epoch",
+    evaluation_strategy="steps",
+    metric_for_best_model = 'accuracy',
     load_best_model_at_end=True,
+    max_steps = 30,
+    logging_steps = 1,                    # we will log every 5 steps
+    eval_steps = 5,                      # we will perform evaluation every 10 steps
+    save_steps = 30,
     )
 
     trainer = Trainer(

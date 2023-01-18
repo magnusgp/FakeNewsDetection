@@ -11,6 +11,8 @@ COPY setup.py setup.py
 COPY src/ src/
 COPY data/ data/
 
+FROM --platform=linux/amd64 newstrain:training
+
 WORKDIR /
 RUN pip install -r requirements.txt --no-cache-dir
 
