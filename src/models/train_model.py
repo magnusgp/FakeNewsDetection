@@ -19,7 +19,7 @@ def compute_metrics(eval_pred):
     predictions = np.argmax(predictions, axis=1)
     return accuracy.compute(predictions=predictions, references=labels)
 
-@hydra.main(config_path="./src/config",config_name="config.yaml")
+@hydra.main(config_path="config",config_name="config.yaml")
 def train(config):
     id2label = {0: "FAKE", 1: "REAL"}
     label2id = {"FAKE": 0, "REAL": 1}
