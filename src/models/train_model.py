@@ -19,11 +19,12 @@ def compute_metrics(eval_pred):
     predictions = np.argmax(predictions, axis=1)
     return accuracy.compute(predictions=predictions, references=labels)
 
-
-def train(accelerator = Accelerator(), lr=2e-5, nepoch=10, nsteps=214):
+@hydra.main(config_path="./src/config",config_name="config.yaml")
+def train(config):
     id2label = {0: "FAKE", 1: "REAL"}
     label2id = {"FAKE": 0, "REAL": 1}
     # load the pretrained model from a checkpoint
+    params = config.experiments
     checkpoint="roberta-base"
     model = AutoModelForSequenceClassification.from_pretrained(checkpoint, num_labels=2, id2label=id2label, label2id=label2id)
     tokenizer = AutoTokenizer.from_pretrained(checkpoint)
@@ -41,17 +42,17 @@ def train(accelerator = Accelerator(), lr=2e-5, nepoch=10, nsteps=214):
     testset = testset.select(range(0, 100))
     
     training_args = TrainingArguments(
-    output_dir="models/roberta-base",
-    report_to="wandb",
-    run_name="roberta-base",
-    learning_rate=lr,
-    per_device_train_batch_size=16,
-    per_device_eval_batch_size=16,
-    num_train_epochs=nepoch,
-    weight_decay=0.01,
-    evaluation_strategy="epoch",
-    save_strategy="epoch",
-    load_best_model_at_end=True,
+    output_dir=params["output_dir"],
+    report_to=params["report_to"],
+    run_name=params["run_name"],
+    learning_rate=params["learning_rate"],
+    per_device_train_batch_size=params["per_device_train_batch_size"],
+    per_device_eval_batch_size=params["per_device_eval_batch_size"],
+    num_train_epochs=params["num_train_epochs"],
+    weight_decay=params["weight_decay"],
+    evaluation_strategy=params["evaluation_strategy"],
+    save_strategy=params["save_strategy"],
+    load_best_model_at_end=params["load_best_model_at_end"],
     )
 
     trainer = Trainer(

@@ -3,8 +3,9 @@ FROM python:3.7
 # Allow statements and log messages to immediately appear in the Knative logs
 ENV PYTHONUNBUFFERED True
 # Copy requirements.txt to the docker image and install packages
-COPY requirements.txt /
-RUN pip install -r requirements.txt
+COPY requirements.txt requirements.txt
+COPY setup.py setup.py
+RUN pip install -r requirements.txt --no-cache-dir
 # Set the WORKDIR to be the folder
 COPY . /app
 # Expose port 5000

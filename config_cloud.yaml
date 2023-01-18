@@ -4,4 +4,4 @@ workerPoolSpecs:
       machineType: n1-highmem-2
    replicaCount: 1
    containerSpec:
-      imageUri: gcr.io/trueorfakenews/training
+      imageUri: gcr.io/trueorfakenews/training@sha256:305fb04d7a5751db38bc55e7f55816762e15098789aa4bae28af53a6b36c4663
