@@ -1,3 +1,5 @@
+![example workflow](https://github.com/magnusgp/FakeNewsDetection/actions/workflows/tests.yml/badge.svg)
+
 Arian Dapouyeh (s204158)\
 Benjamin Fazal (s200431)\
 Kasper Helverskov Petersen (s203294)
