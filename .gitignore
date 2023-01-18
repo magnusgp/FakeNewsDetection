@@ -87,11 +87,11 @@ target/
 
 # Mypy cache
 .mypy_cache/
-/data
+
 /newsenv
 /.dvc
 /models
 # wandb
 /wandb
 
-.dvc/tmp/rwlock.lock
+/.dvc/tmp/rwlock.lock
