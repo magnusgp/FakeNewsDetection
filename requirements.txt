@@ -24,3 +24,4 @@ fastapi
 uvicorn[standard]
 wandb
 evaluate
+hydra-core
