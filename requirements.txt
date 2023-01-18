@@ -16,7 +16,6 @@ pandas
 transformers
 accelerate
 datasets
-=======
 bs4 
 nltk
 sklearn
