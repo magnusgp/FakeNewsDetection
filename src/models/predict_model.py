@@ -1,9 +1,7 @@
 import torch
-from src.data.make_dataset import trainloader, testloader
 from accelerate import Accelerator
 from datasets import load_metric
-from accelerate import Accelerator
-from train_model import model
+from transformers import AutoModelForSequenceClassification
 
 # Load metric (f1 and accuracy)
 f1 = load_metric("f1")
@@ -13,7 +11,11 @@ acc = load_metric("accuracy")
 accelerator = Accelerator()
 
 #Validate model 
-def validate(model):
+def validate():
+    checkpoint="roberta-base"
+    model = AutoModelForSequenceClassification.from_pretrained(checkpoint, num_labels=2)
+    testset = torch.load('data/processed/testEx.pt')
+    testloader = torch.utils.data.DataLoader(testset, batch_size=64, shuffle=True)
     for batch in testloader:
         #batch = {k:v.cuda() for k,v in batch.items()}
         outputs = model(**batch)
@@ -29,4 +31,5 @@ def validate(model):
     return acc_res
 
 if __name__ == "__main__":
-    validate(model)
+    validate()
+    

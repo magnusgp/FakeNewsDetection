@@ -1,78 +1,72 @@
-<<<<<<< HEAD
-=======
 from accelerate import Accelerator
-from transformers import AutoModelForSequenceClassification
-from transformers import AdamW
+from transformers import AutoModelForSequenceClassification, TrainingArguments, Trainer, AdamW, AutoTokenizer, DataCollatorWithPadding
 from tqdm.auto import tqdm
 import torch
 import numpy as np
 from datasets import load_metric 
 from copy import deepcopy
-from src.data.make_dataset import trainloader, testloader
+##from src.data.make_dataset import trainEx, testEx
+from predict_model import *
+import wandb
+import pandas as pd
+import numpy as np
+import evaluate
+import hydra
 
-# Define parameters 
-nsteps=214
-nepoch=10
-best_val_acc = 0
-
-# Accelerator 
-accelerator = Accelerator()
-
-# Define model 
-checkpoint="roberta-base"
-model = AutoModelForSequenceClassification.from_pretrained(checkpoint, num_labels=2)
-
-# Define optimizer
-optim = AdamW(model.parameters(), lr=5e-5)
-
-# Accelerator pt.2
-device = accelerator.device
-model=model.to(device)
-print("We are using the following accelerator:" " ", device)
-
-# Load metric (f1 and accuracy)
-f1 = load_metric("f1")
-acc = load_metric("accuracy")
-
-# Preparing model 
-model, optimizer, trainloader = accelerator.prepare(model, optim, trainloader)
-testloader = accelerator.prepare(testloader)
-
-# Train model
-for epoch in range(nepoch):
-    model.train()
-    print(f"epoch n°{epoch+1}:")
-    av_epoch_loss=0
-    progress_bar = tqdm(range(nsteps))
-    for batch in trainloader:
-        #batch = {k:v.cuda() for k,v in batch.items()}
-        outputs = model(**batch)
-        loss = outputs.loss
-        av_epoch_loss += loss
-        #loss.backward()
-        accelerator.backward(loss)
-        optim.step()
-        optim.zero_grad()
-        predictions=torch.argmax(outputs.logits, dim=-1)
-        f1.add_batch(predictions=predictions, references=batch["labels"])
-        acc.add_batch(predictions=predictions, references=batch["labels"])
-        progress_bar.update(1)
-    av_epoch_loss /= nsteps
-    print(f"Training Loss: {av_epoch_loss: .2f}")
-    acc_res = acc.compute()["accuracy"]
-    print(f"Training Accuracy: {acc_res:.2f}")
-    f_res = f1.compute()["f1"]
-    print(f"Training F1-score: {f_res:.2f}")
-    model.eval()
-    val_acc = validate(model)
-    if val_acc > best_val_acc:
-        print("Achieved best validation accuracy so far. Saving model.")
-        best_val_acc = val_acc
-        best_model_state = deepcopy(model.state_dict())
-    print("\n\n")
+def compute_metrics(eval_pred):
+    accuracy = evaluate.load("accuracy")
+    predictions, labels = eval_pred
+    predictions = np.argmax(predictions, axis=1)
+    return accuracy.compute(predictions=predictions, references=labels)
 
 
+def train(accelerator = Accelerator(), lr=2e-5, nepoch=10, nsteps=214):
+    id2label = {0: "FAKE", 1: "REAL"}
+    label2id = {"FAKE": 0, "REAL": 1}
+    # load the pretrained model from a checkpoint
+    checkpoint="roberta-base"
+    model = AutoModelForSequenceClassification.from_pretrained(checkpoint, num_labels=2, id2label=id2label, label2id=label2id)
+    tokenizer = AutoTokenizer.from_pretrained(checkpoint)
 
+    data_collator = DataCollatorWithPadding(tokenizer=tokenizer)
+    
+    # Preparing model 
+    dataset = torch.load('data/processed/dataset.pt')
+    trainset = dataset['train']
+    trainset = trainset.remove_columns(["text"]).rename_column('label', "labels").with_format("torch")
+    testset = dataset['test']
+    testset = testset.remove_columns(["text"]).rename_column('label', "labels").with_format("torch")
+    # TODO: remove this, this is only to test the code
+    trainset = trainset.select(range(0, 100))
+    testset = testset.select(range(0, 100))
+    
+    training_args = TrainingArguments(
+    output_dir="models/roberta-base",
+    report_to="wandb",
+    run_name="roberta-base",
+    learning_rate=lr,
+    per_device_train_batch_size=16,
+    per_device_eval_batch_size=16,
+    num_train_epochs=nepoch,
+    weight_decay=0.01,
+    evaluation_strategy="epoch",
+    save_strategy="epoch",
+    load_best_model_at_end=True,
+    )
 
+    trainer = Trainer(
+    model=model,
+    args=training_args,
+    train_dataset=trainset,
+    eval_dataset=testset,
+    tokenizer=tokenizer,
+    data_collator=data_collator,
+    compute_metrics=compute_metrics,
+    )
 
->>>>>>> main
+    trainer.train()
+    
+
+if __name__ == "__main__":
+    #wandb.init(project="mlops_fake_news", entity="ai_mark")
+    train()

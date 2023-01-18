@@ -1,0 +1,5 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'gcr.io/concrete-flare-374308/training', '.']
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/concrete-flare-374308/training']

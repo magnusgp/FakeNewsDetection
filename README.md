@@ -1,6 +1,9 @@
-Magnus Guldberg Petersen (s204075)\
+Arian Dapouyeh (s204158)\
 Benjamin Fazal (s200431)\
 Kasper Helverskov Petersen (s203294)
+Magnus Guldberg Petersen (s204075)\
+
+
 
 MLOPS project description - Classifying real and fake news
 ==============================
@@ -28,7 +31,7 @@ We intend to use some of the pre-trained models from the Transformer framework. 
 * [x] Make sure that all team members have write access to the github repository
 * [x] Create a dedicated environment for you project to keep track of your packages
 * [x] Create the initial file structure using cookiecutter
-* [ ] Fill out the `make_dataset.py` file such that it downloads whatever data you need and
+* [x] Fill out the `make_dataset.py` file such that it downloads whatever data you need and
 * [x] Add a model file and a training script and get that running
 * [x] Remember to fill out the `requirements.txt` file with whatever dependencies that you are using
 * [ ] Remember to comply with good coding practices (`pep8`) while doing the project
@@ -50,10 +53,10 @@ We intend to use some of the pre-trained models from the Transformer framework. 
 * [ ] Write unit tests related to model construction and or model training
 * [ ] Calculate the coverage.
 * [x] Get some continuous integration running on the github repository
-* [x] Create a data storage in GCP Bucket for you data and preferable link this with your data git version control setup
+* [x] Create a data storage in GCP Bucket for you data and preferable link this with your data git version control setup 
 * [ ] Create a trigger workflow for automatically building your docker images
 * [ ] Get your model training in GCP using either the Engine or Vertex AI
-* [ ] Create a FastAPI application that can do inference using your model
+* [x] Create a FastAPI application that can do inference using your model
 * [ ] If applicable, consider deploying the model locally using torchserve
 * [ ] Deploy your model in GCP using either Functions or Run as the backend
 
