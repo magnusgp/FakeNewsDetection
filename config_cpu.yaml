@@ -4,4 +4,4 @@ workerPoolSpecs:
       machineType: n1-highmem-2
    replicaCount: 1
    containerSpec:
-      imageUri: gcr.io/<project-id>/<docker-img>
+      imageUri: gcr.io/concrete-flare-374308/training:latest
