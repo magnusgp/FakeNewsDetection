@@ -16,6 +16,8 @@ pandas
 transformers
 accelerate
 datasets
+<<<<<<< Updated upstream
+=======
 bs4 
 nltk
 sklearn
@@ -25,3 +27,5 @@ uvicorn[standard]
 wandb
 evaluate
 hydra-core
+gcloud
+>>>>>>> Stashed changes
