@@ -93,3 +93,5 @@ target/
 /.dvc
 # wandb
 /wandb
+
+.dvc/tmp/rwlock.lock
