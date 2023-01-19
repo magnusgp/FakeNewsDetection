@@ -6,8 +6,8 @@ from sklearn.model_selection import train_test_split
 def editcsv():
 
     cwd = os.getcwd()
-    csv_true = pd.read_csv(r"{}\data\raw\True.csv".format(cwd))
-    csv_fake = pd.read_csv(r"{}\data\raw\Fake.csv".format(cwd))
+    csv_true = pd.read_csv(r"{}/data/raw/True.csv".format(cwd))
+    csv_fake = pd.read_csv(r"{}/data/raw/Fake.csv".format(cwd))
     # create a new column called label and set it to 0 for fake news
     csv_fake["label"] = 0
     # create a new column called label and set it to 1 for true news
