@@ -361,6 +361,7 @@ Furthermore, to run the unittests written for the project locally, one would run
 > **You can take inspiration from [this figure](figures/bucket.png).**
 >
 > Answer:
+> > ![my_image](figures/buckets.png)
 
 --- question 19 fill here ---
 
@@ -370,6 +371,7 @@ Furthermore, to run the unittests written for the project locally, one would run
 > **You can take inspiration from [this figure](figures/registry.png).**
 >
 > Answer:
+> ![my_image](figures/container_registry.png)
 
 --- question 20 fill here ---
 
@@ -379,6 +381,10 @@ Furthermore, to run the unittests written for the project locally, one would run
 > **your project. You can take inspiration from [this figure](figures/build.png).**
 >
 > Answer:
+> 
+> markdown
+![my_image](figures/build_history.png)
+
 
 --- question 21 fill here ---
 
