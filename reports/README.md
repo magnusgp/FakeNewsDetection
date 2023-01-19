@@ -152,7 +152,7 @@ We did not attempt to systematically standardize the code, however we did follow
 >
 > Answer: 
 
-*We implemented 7 tests in total covering the making of the dataset as well as the output of the model*
+We implemented 7 tests in total covering the making of the dataset as well as the output of the model. We also made development tests to check if the user is running a version of python that is compliant with our project.
 
 ### Question 8
 
@@ -218,6 +218,8 @@ We did use DVC to upload the data to the cloud, however we had a lot of problems
 
 We have set up continuous integration for the unittesting of our code, meaning that the pytest package will run all tests inside the ‘tests’ directory everytime a push is made to the main branch. Furthermore, whenever a push is made with the push tag ‘building’, a docker image will be built in the Google Cloud container registry. The pytests make use of caching, as it would otherwise take a very long time to install all requirements needed to run the tests from requirements.txt. Besides the testing and the docker building, we have not been able to set up additional CI such as linting, which would have been preferred. We have tried formatting our code and making it flake8 compliant manually, which could be made into a CI workflow, but the timeframe for this project did not allow us to explore this.
 
+We also set up so that whenever we make a push to the main branch, we automatically build the API in cloud run and deploy it immediately. This is done by using a GitHub webhook that automatically tells Cloud Run to build and deploy a new container from the app.Dockerfile. This ensures that we continuously build and integrate code changes into our deployed model.
+
 
 ## Running code and tracking experiments
 
@@ -268,20 +270,18 @@ When running our experiments, we made use of the hydra config file. Whenever we 
 >
 > Answer:
 We used Weights and biases to track both our training and test process (regarding the model). Additionally, the system was tracked - referring to process memory, disk utilization and network trafficking. 
-In the first image, you can see the evaluation of our model. \
+In the first image, you can see the evaluation of our model. 
 ![my_image](figures/wandb.png)
  
 This shows (see the light blue line) that our accuracy grew as our loss fell (quite naturally). Furthermore, we see that the accuracy is starting to flatten out, but the loss remains falling with a high rate - from this it becomes clear that further evaluation (with more epochs) could have been beneficial. 
-On the second image the training loss is shown. \
- ![my_image](figures/wandb2.png)
+On the second image the training loss is shown. 
+![my_image](figures/wandb2.png)
 
 This shows a general tendency of decreasing loss, but it fluctuates quite a lot from step to step. The fluctuations could be decreased by using a larger batchsize. 
-The last image shows an overview of the system which processed the training and evaluation of our model. \
- ![my_image](figures/wandb3.png)
+The last image shows an overview of the system which processed the training and evaluation of our model. 
+![my_image](figures/wandb3.png)
 
 From this we can gather a general understanding of the power which it takes to run a deep learning model of our caliber. Although high fluctuations appear in the overview of the process memory, a general tendency shows the availability and memory in use (both in procent and MB). 
-
---- question 14 fill here ---
 
 ### Question 15
 
@@ -320,7 +320,7 @@ The training dockerfile can be found here:
 > Answer:
 > 
 
-Debugging method was dependent on group members. Some just used VS code's python debugger while others used Pycharms debugger. Debugging in both VS code and Pycharm was done to fully understand the current value of both models and data - in the process of loading data, the VS code debugger helped us understand both the shape, value and type of the data, which was a huge helped when trying to rework and split the data into training and testing sets. Furthermore, we started with a csv-file and ended with a serialized pytorch model (dataset.pt), which needed a lot of debugging and reworking. 
+Debugging method was dependent on group members. Some just used VS code's python debugger while others used Pycharms debugger. Debugging in both VS code and Pycharm was done to fully understand the current value of both models and data - in the process of loading data, the VS code debugger helped us understand both the shape, value and type of the data, which was a huge help when trying to rework and split the data into training and testing sets. Furthermore, we started with a csv-file and ended with a serialized pytorch model (dataset.pt), which needed a lot of debugging and reworking. 
 
 ## Working in the cloud
 
@@ -338,7 +338,7 @@ Debugging method was dependent on group members. Some just used VS code's python
 > Answer:
 >
 
-Compute engine: Here, we created virtual machine instances for computational purposes. We mainly used this for trying to run the training scripts as the transformer model was too large to run properly on our local pc’s. 
+Compute Engine: Here, we created virtual machine instances for computational purposes. We mainly used this for trying to run the training scripts as the transformer model was too large to run properly on our local pc’s. 
 Vertex AI: Used for automatically setting up training jobs and executing them directly in the cloud using cloud resources. However, we used this very little and only experimentally as we had issues with our training docker files. The issues mainly rose from us not being able to accurately pull the dataset using dvc. Another issue here were, that two of the group members used an AMD chip, which caused the docker images to be non-compliant with the ARM-based system that Vertex AI runs on.
 Cloud storage: Used for storing larger files in the cloud. We used this for storing our processed dataset to make it available to use in our training as well as storing the trained model checkpoint. The model checkpoint would then be loading into cloud run for deployment
 Container registry: Used for storing the containers used in the project. Here, we had the built docker containers for running both the application as well as the container for training our model.
@@ -357,7 +357,7 @@ Container registry: Used for storing the containers used in the project. Here, w
 > Answer:
 > 
 
-We used the compute engine to try to run our training scripts. We used cpu-instances using our custom container image and pytorch pre-installed of the type ‘n1-standard-1’ and the CPU platform ‘Intel Haswell’. Unfortunately we lost our access to the project where we would run our training script after the 50 dollars was used. We did not train the models on the compute engine, but we know that it's possible. Instead we found a solution in letting the models run locally and then build a docker image from the local machine. We also tried to directly pull the repository from git inside a VM instance and run it from there, but it did not yield any results. 
+We used the Compute Engine to try to run our training scripts. We used cpu-instances using our custom container image and pytorch pre-installed of the type ‘n1-standard-1’ and the CPU platform ‘Intel Haswell’. Unfortunately we lost our access to the project where we would run our training script after the 50 dollars was used. We did not train the models on the Compute Engine, but we know that it's possible. Instead we found a solution in letting the models run locally and then build a docker image from the local machine. We also tried to directly pull the repository from git inside a VM instance and run it from there, but it did not yield any results. 
 
 ### Question 19
 
@@ -379,7 +379,7 @@ We used the compute engine to try to run our training scripts. We used cpu-insta
 
 ### Question 21
 
-> **Upload one image of your GCP cloud build history, so we can see the history of the images that have been build in**
+> **Upload one image of your GCP cloud build history, so we can see the history of the images that have been built in**
 > **your project. You can take inspiration from [this figure](figures/build.png).**
 >
 > Answer:
@@ -394,7 +394,7 @@ We used the compute engine to try to run our training scripts. We used cpu-insta
 > Answer length: 100-200 words.
 >
 > Example:
-> *For deployment we wrapped our model into application using ... . We first tried locally serving the model, which*
+> *For deployment we wrapped our model into an application using ... . We first tried locally serving the model, which*
 > *worked. Afterwards we deployed it in the cloud, using ... . To invoke the service an user would call*
 > *`curl -X POST -F "file=@file.json"<weburl>`*
 >
@@ -422,7 +422,7 @@ In order to invoke the service served on cloud run, one would access the hyperli
 >
 > Example:
 > *We did not manage to implement monitoring. We would like to have monitoring implemented such that over time we could*
-> *measure ... and ... that would inform us about this ... behaviour of our application.*
+> *measure ... and ... that would inform us about this ... behavior of our application.*
 >
 > Answer:
 
@@ -441,7 +441,7 @@ We used monitoring through the google cloud services. The alerting function was 
 > Answer:
 > 
 
-s204075 (Magnus) still has 100 dollars from his 350 dollar budget. s204158 (Arian) used all of his 50 dollars. A lot of the money spent was used on the old mlops project from the exercises. In total, the Fake News Detection project used around 60 kr in credits, where storage and compute was the most expensive services. However, it is hard to know exactly what costs a lot since google cloud did not log expenses which were paid for by credits.
+s204075 (Magnus) still has 100 dollars from his 350 dollar budget. s204158 (Arian) used all of his 50 dollars. A lot of the money spent was used on the old MLOps project from the exercises. In total, the Fake News Detection project used around 60 kr in credits, where storage and compute was the most expensive services. However, it is hard to know exactly what costs a lot since google cloud did not log expenses which were paid for by credits.
 
 ## Overall discussion of project
 
@@ -471,18 +471,18 @@ The starting point of the diagram is the user which can directly authenticate in
 > Answer length: 200-400 words.
 >
 > Example:
-> *The biggest challenges in the project was using ... tool to do ... . The reason for this was ...*
+> *The biggest challenge in the project was using ... tool to do ... . The reason for this was ...*
 >
 > Answer:
 > 
 
-Cloud computing was certainly a part of the project that took an overwhelming amount of time. We used a lot of time trying to figure out why the docker build was failing and why we could not find the appropriate data anywhere. The costs also put an early stop to our project, when we could not access it anymore, forcing us to use another account and set it up again.
+Cloud computing was certainly a part of the project that took an overwhelming amount of time. We spent a lot of time trying to figure out why the docker build was failing and why we could not find the appropriate data anywhere. The costs also put an early stop to our project, when we could not access it anymore, forcing us to use another account and set it up again.
 \
 We had so many issues with dvc, where it would remove our data from our local machines never to be seen again, forcing us to create and process the dataset again. 
 \
 Another issue was our inexperience with git. We had trouble with our branches, pull requests and merges as files would change, lose functionality or even disappear at some times, making us have to spend several hours to regain what was lost. 
 \
-We were also challenged with the different computer architectures within the group. Two of us were using Mac/Linux operating systems with the AMD-based chips and the others were using Windows operating systems with the ARM-based chips. This caused a lot of our internal files to be non-compliant and essentially ended up ruining a lot of our work on the docker files. These docker files also ended up being huge and took very long time (>30 mins) to push to the cloud, making a deployment pipeline very slow.
+We were also challenged with the different computer architectures within the group. Two of us were using Mac/Linux operating systems with the AMD-based chips and the others were using Windows operating systems with the ARM-based chips. This caused a lot of our internal files to be non-compliant and essentially ended up ruining a lot of our work on the docker files. These docker files also ended up being huge and took a very long time (>30 mins) to push to the cloud, making the deployment pipeline very slow.
 
 ### Question 27
 
@@ -500,5 +500,12 @@ We were also challenged with the different computer architectures within the gro
 > Answer:
 > 
 
-s204158(Arian) worked with getting the scripts related to generating the data. He also attempted to get the model training on the gcloud using our costume container. <TO BE CONTINUED> 
+s204158 (Arian) worked with getting the scripts related to generating the data. He also attempted to get the model training on the gcloud using our costume container. 
 
+s203294 (Kasper) worked with unittesting of the model and data scripts, the original model (both training and testing), hydra configuration for loading and managing hyperparameters, code quality and formatting, data stability report from evidently and attempted fix of dvc.
+
+s200431 (Benjamin) worked on weights and biases and that the original model (both training and testing(validating) was implemented in the git repository. Was in charge of monitoring on cloud (alerting), worked on the original API (the first shown with Fast API (local deployment for the model)), data drifting (evidently), distributed data loading (used when loading our data for training), data stability report (evidently). Also attempted a fix of dvc which sadly didn't succeed. 
+
+s204075 (Magnus) was in charge of using the transformer framework to train and validate the model as well as logging the results to wandb. He also worked on deploying the model locally as well as running cloud VM instances, container registries and cloud run/functions. He also created the dockerfiles and configuration files for the build and the final working version of the dataset cleaning and creation. He also set up the repository and the cookiecutter structure and found the dataset. He also created the storage bucket, the testing workflow in github and the trigger workflow for creating docker images in google cloud. Furthermore, he also contributed with hydra configuration in the training files and in the configuration of these. Was additionally in charge of the final API (with Fast API) which was deployed via the cloud (deployment of our trained model). 
+
+All members contributed to the report and general discussions about the code (fx debugging each other's code, etc.) and the project as a whole.
