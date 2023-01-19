@@ -2,6 +2,7 @@ from copy import deepcopy
 
 import evaluate
 import hydra
+import os
 import numpy as np
 import pandas as pd
 import torch
@@ -46,9 +47,7 @@ def train(config):
 
     # Preparing model
     # dataset = torch.load('data/processed/dataset.pt')
-    dataset = torch.load(
-        "/Users/magnus/Desktop/DTU/5semester/MLOPS/TrueOrFakeNews/data/processed/dataset.pt"
-    )
+    dataset = torch.load(r"{}/data/processed/dataset.csv".format(os.getcwd()))
     trainset = dataset["train"]
     trainset = (
         trainset.remove_columns(["text"])
