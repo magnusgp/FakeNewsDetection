@@ -47,7 +47,7 @@ def train(config):
 
     # Preparing model
     # dataset = torch.load('data/processed/dataset.pt')
-    print(r"{}/data/processed/dataset.csv".format(os.chdir(os.chdir(os.chdir(os.chdir(os.getcwd()))))))
+    print(os.chdir(os.chdir(os.chdir(os.chdir(os.getcwd())))))
     dataset = torch.load(r"{}/data/processed/dataset.csv".format(os.chdir(os.chdir(os.chdir(os.chdir(os.getcwd()))))))
     trainset = dataset["train"]
     trainset = (
