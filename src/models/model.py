@@ -1,5 +1,6 @@
-from torch import nn, optim
 import torch.nn.functional as F
+from torch import nn, optim
+
 
 class Model(nn.Module):
     def __init__(self):

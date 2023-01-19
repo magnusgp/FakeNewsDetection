@@ -1,17 +1,18 @@
 # -*- coding: utf-8 -*-
-import torch
-import click
 import logging
-import wget
 from pathlib import Path
-from dotenv import find_dotenv, load_dotenv
-import pandas as pd
-import numpy as np
-import nltk
-from sklearn.model_selection import train_test_split
-from transformers import RobertaTokenizer, AutoTokenizer
-from utils import strip_html, remove_between_square_brackets, remove_between_square_brackets, remove_stopwords ,denoise_text, roberta_encode, tokenize
 
+import click
+import nltk
+import numpy as np
+import pandas as pd
+import torch
+import wget
+from dotenv import find_dotenv, load_dotenv
+from sklearn.model_selection import train_test_split
+from transformers import AutoTokenizer, RobertaTokenizer
+from utils import (denoise_text, remove_between_square_brackets,
+                   remove_stopwords, roberta_encode, strip_html, tokenize)
 
 MAX_LEN = 256
 MODEL_NAME = 'roberta-base'

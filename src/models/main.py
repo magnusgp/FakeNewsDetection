@@ -1,7 +1,8 @@
-from src.models.train_model import train
-from src.models.predict_model import validate
-from transformers import AutoModelForSequenceClassification, AdamW
 from accelerate import Accelerator
+from transformers import AdamW, AutoModelForSequenceClassification
+
+from src.models.predict_model import validate
+from src.models.train_model import train
 
 if __name__ == "__main__":
     # Accelerator 

@@ -1,9 +1,12 @@
-import re, string
-from bs4 import BeautifulSoup
+import re
+import string
+
 import nltk
 import numpy as np
+from bs4 import BeautifulSoup
 from nltk.corpus import stopwords
 from transformers import AutoTokenizer
+
 
 def strip_html(text):
     soup = BeautifulSoup(text, "html.parser")

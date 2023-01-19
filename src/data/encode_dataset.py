@@ -1,14 +1,16 @@
 # -*- coding: utf-8 -*-
-import click
 import logging
 from pathlib import Path
-from dotenv import find_dotenv, load_dotenv
-import pandas as pd
-import numpy as np
-from transformers import RobertaTokenizer, TFRobertaModel, AutoTokenizer, AutoModel
-from sklearn.model_selection import train_test_split
 
+import click
+import numpy as np
+import pandas as pd
 import torch
+from dotenv import find_dotenv, load_dotenv
+from sklearn.model_selection import train_test_split
+from transformers import (AutoModel, AutoTokenizer, RobertaTokenizer,
+                          TFRobertaModel)
+
 
 def tokenize(dataframe):
     """Tokenizes text from a string into a list of strings (tokens)"""

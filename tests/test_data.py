@@ -1,7 +1,9 @@
-import torch
-import numpy as np
 import os.path
+
+import numpy as np
 import pytest
+import torch
+
 
 @pytest.mark.skipif(not os.path.exists('data/processed/trainset.pt'), reason="Training files not found")
 @pytest.mark.skipif(not os.path.exists('data/processed/testset.pt'), reason="Training files not found")

@@ -1,15 +1,16 @@
-from accelerate import Accelerator
-from transformers import AutoModelForSequenceClassification
-from transformers import AdamW
-from tqdm.auto import tqdm
-import torch
-import numpy as np
-from datasets import load_metric 
 from copy import deepcopy
+
+import numpy as np
+import pandas as pd
+import torch
+from accelerate import Accelerator
+from datasets import load_metric
 ##from src.data.make_dataset import trainEx, testEx
 from predict_model import *
+from tqdm.auto import tqdm
+from transformers import AdamW, AutoModelForSequenceClassification
+
 import wandb
-import pandas as pd
 
 #wandb.init(project="mlops_fake_news", entity="ai_mark")
 """
