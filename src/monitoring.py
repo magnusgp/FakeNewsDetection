@@ -38,7 +38,7 @@ data_drift_report = Report(metrics=[
 
 data_drift_report.run(current_data=pd.DataFrame(dataset['input_ids'].numpy()[50:]), reference_data=pd.DataFrame(dataset['input_ids'].numpy()[:50]))
 
-data_drift_report.save_html("file_datadrifting.html") 
+data_drift_report.save_html("visualisation/file_datadrifting.html") 
 
 
 

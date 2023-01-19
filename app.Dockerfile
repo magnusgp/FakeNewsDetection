@@ -1,19 +1,17 @@
 # Use Python37
-FROM python:3.7
-# Allow statements and log messages to immediately appear in the Knative logs
-ENV PYTHONUNBUFFERED True
+FROM python:3.9-slim
 # Copy requirements.txt to the docker image and install packages
 COPY requirements.txt requirements.txt
-COPY setup.py setup.py
-RUN pip install -r requirements.txt --no-cache-dir
+RUN pip install fastapi
+RUN pip install uvicorn
+RUN pip install transformers
 # Set the WORKDIR to be the folder
-COPY . /app
+COPY main.py main.py
+COPY /models /models
 # Expose port 5000
 EXPOSE 5000
 ENV PORT 5000
-WORKDIR /app
-# Use gunicorn as the entrypoint
-# CMD exec gunicorn --bind :$PORT main:app --workers 1 --threads 1 --timeout 0
-
+WORKDIR /
+# Use uvicorn as the entrypoint
 CMD exec uvicorn main:app --port $PORT --host 0.0.0.0 --workers 1
 
