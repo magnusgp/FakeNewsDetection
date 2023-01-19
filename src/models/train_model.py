@@ -64,6 +64,20 @@ def train(config):
     # TODO: remove this, this is only to test the code
     trainset = trainset.select(range(0, 100))
     testset = testset.select(range(0, 100))
+    
+    # test/assert that the params are of correct type
+    stringparams = ["output_dir", "report_to", "run_name", "evaluation_strategy", "save_strategy"]
+    floatparams = ["learning_rate", "weight_decay"]
+    intparams = ["per_device_train_batch_size", "per_device_eval_batch_size", "num_train_epochs", "load_best_model_at_end"]
+    for param in params:
+        if param in stringparams:
+            assert isinstance(params[param], str), f"{param} must be a string"
+        elif param in floatparams:
+            assert isinstance(params[param], float), f"{param} must be a float"
+        elif param in intparams:
+            assert isinstance(params[param], int), f"{param} must be an int"
+        else:
+            raise ValueError(f"Parameter type of parameter: {param} is not recognized!")
 
     training_args = TrainingArguments(
         output_dir=params["output_dir"],
@@ -77,6 +91,7 @@ def train(config):
         evaluation_strategy=params["evaluation_strategy"],
         save_strategy=params["save_strategy"],
         load_best_model_at_end=params["load_best_model_at_end"],
+        daatloader_num_workers=2,
     )
 
     trainer = Trainer(
