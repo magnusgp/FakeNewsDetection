@@ -9,7 +9,7 @@ RUN pip install uvicorn
 RUN pip install transformers
 # Set the WORKDIR to be the folder
 COPY main.py main.py
-COPY /models /models
+COPY /models/roberta-base/checkpoint-30 /models/roberta-base/checkpoint-30
 # Use uvicorn as the entrypoint
 EXPOSE $PORT
 CMD exec uvicorn main:app --port $PORT --host 0.0.0.0 --workers 1

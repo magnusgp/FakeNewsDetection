@@ -4,7 +4,7 @@ from transformers import pipeline, AutoTokenizer, AutoModelForSequenceClassifica
 from fastapi.responses import HTMLResponse
 
 # Load the model
-model_path = "models/roberta-base/checkpoint-30/"
+model_path = r"models/roberta-base/checkpoint-30/"
 
 # Load the roberta tokenizer
 tokenizer = AutoTokenizer.from_pretrained("roberta-base")
