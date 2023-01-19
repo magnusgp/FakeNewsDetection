@@ -9,7 +9,6 @@ model_path = r"models/roberta-base/checkpoint-30/"
 # Load the roberta tokenizer
 tokenizer = AutoTokenizer.from_pretrained("roberta-base")
 
-
 # Initialize an instance of FastAPI
 app = FastAPI()
 
@@ -23,6 +22,7 @@ def root():
     </body>
     </html>""")
 
+# Define the route for the input text prompt
 @app.get("/input_text/")
 def input_text():
     return HTMLResponse(content="""<html>
@@ -35,7 +35,7 @@ def input_text():
     </body>
     </html>""")
 
-# Define the route to the sentiment predictor
+# Define the route to the text predictor
 @app.get("/predict_if_fake_news/")
 def predict(text_message):
     # make the text message a string
@@ -52,4 +52,3 @@ def predict(text_message):
     <h1>Prediction: {}</h1>
     </body>
     </html>""".format(text_message, classify(text_message)[0]['label']))
-    #return classify(text_message)

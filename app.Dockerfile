@@ -12,4 +12,4 @@ COPY models/ models/
 WORKDIR /
 # Use uvicorn as the entrypoint
 EXPOSE $PORT
-CMD exec uvicorn main:app --port $PORT --host 0.0.0.0 --workers 1
+CMD cd / ; exec uvicorn main:app --port $PORT --host 0.0.0.0 --workers 1
