@@ -3,16 +3,11 @@ from copy import deepcopy
 import evaluate
 import hydra
 import numpy as np
-import pandas as pd
 import torch
-from accelerate import Accelerator
 from datasets import load_metric
 
-##from src.data.make_dataset import trainEx, testEx
 from predict_model import *
-from tqdm.auto import tqdm
 from transformers import (
-    AdamW,
     AutoModelForSequenceClassification,
     AutoTokenizer,
     DataCollatorWithPadding,
@@ -32,6 +27,11 @@ def compute_metrics(eval_pred):
 
 @hydra.main(config_path="config", config_name="config.yaml")
 def train(config):
+    '''Function that takes the hydra config as input and trains the model using these parameters
+    The function is based on the example from the transformers library:
+    www.github.com/huggingface/transformers/blob/master/examples/pytorch/text-classification.
+    The model outputs checkpoints and logs to wandb.'''
+    
     id2label = {0: "FAKE", 1: "REAL"}
     label2id = {"FAKE": 0, "REAL": 1}
     # load the pretrained model from a checkpoint
@@ -45,10 +45,10 @@ def train(config):
     data_collator = DataCollatorWithPadding(tokenizer=tokenizer)
 
     # Preparing model
-    # dataset = torch.load('data/processed/dataset.pt')
     dataset = torch.load(
         "/Users/magnus/Desktop/DTU/5semester/MLOPS/TrueOrFakeNews/data/processed/dataset.pt"
     )
+    # Make sure that we only use the encoded data, both for training and testing
     trainset = dataset["train"]
     trainset = (
         trainset.remove_columns(["text"])
@@ -61,7 +61,8 @@ def train(config):
         .rename_column("label", "labels")
         .with_format("torch")
     )
-    # TODO: remove this, this is only to test the code
+    # Subsample of the data to train the model locally
+    # Can be removed when training on the full dataset in cloud
     trainset = trainset.select(range(0, 100))
     testset = testset.select(range(0, 100))
 
@@ -90,6 +91,7 @@ def train(config):
         else:
             raise ValueError(f"Parameter type of parameter: {param} is not recognized!")
 
+    # Pass arguments to the trainer
     training_args = TrainingArguments(
         output_dir=params["output_dir"],
         report_to=params["report_to"],
@@ -115,9 +117,9 @@ def train(config):
         compute_metrics=compute_metrics,
     )
 
+    # Train the model
     trainer.train()
 
 
 if __name__ == "__main__":
-    # wandb.init(project="mlops_fake_news", entity="ai_mark")
     train()
