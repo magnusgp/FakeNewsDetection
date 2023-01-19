@@ -3,6 +3,7 @@ FROM python:3.9-slim
 # Copy requirements.txt to the docker image and install packages
 WORKDIR /
 COPY requirements.txt requirements.txt
+RUN pip install torch
 RUN pip install fastapi
 RUN pip install uvicorn
 RUN pip install transformers
