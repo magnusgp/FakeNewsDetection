@@ -10,37 +10,44 @@ from dotenv import find_dotenv, load_dotenv
 from transformers import AutoTokenizer
 
 MAX_LEN = 256
-MODEL_NAME = 'roberta-base'
+MODEL_NAME = "roberta-base"
+
 
 @click.command()
-@click.argument('input_filepath', type=click.Path(exists=True))
-@click.argument('output_filepath', type=click.Path())
+@click.argument("input_filepath", type=click.Path(exists=True))
+@click.argument("output_filepath", type=click.Path())
 def makedata(input_filepath, output_filepath):
-    """ Runs data processing scripts to turn raw data from (../raw) into
-        cleaned data ready to be analyzed (saved in ../processed).
+    """Runs data processing scripts to turn raw data from (../raw) into
+    cleaned data ready to be analyzed (saved in ../processed).
     """
     logger = logging.getLogger(__name__)
-    logger.info('making final data set from raw data')
+    logger.info("making final data set from raw data")
 
     # load the dataset from the raw folder (input_filepath)
     # if the dataset does not exist, create it
-    if '{}/dataset.csv'.format(input_filepath) not in input_filepath:
+    if "{}/dataset.csv".format(input_filepath) not in input_filepath:
         editcsv()
-        
-    dataset = load_dataset('csv', data_files='{}/dataset.csv'.format(input_filepath))['train']
-    
+
+    dataset = load_dataset("csv", data_files="{}/dataset.csv".format(input_filepath))[
+        "train"
+    ]
+
     dataset = dataset.train_test_split(test_size=0.2, shuffle=True)
-    
-    tokenizer = AutoTokenizer.from_pretrained('roberta-base')
-    
-    dataset = dataset.map(lambda e: tokenizer(e['text'], truncation=True, padding='max_length'), batched=True)
-    
-    dataset.set_format(type='torch', columns=['input_ids', 'attention_mask', 'label'])
 
-    torch.save(dataset, '{}/dataset.pt'.format(output_filepath))
+    tokenizer = AutoTokenizer.from_pretrained("roberta-base")
 
-if __name__ == '__main__':
-    log_fmt = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    dataset = dataset.map(
+        lambda e: tokenizer(e["text"], truncation=True, padding="max_length"),
+        batched=True,
+    )
+
+    dataset.set_format(type="torch", columns=["input_ids", "attention_mask", "label"])
+
+    torch.save(dataset, "{}/dataset.pt".format(output_filepath))
+
+
+if __name__ == "__main__":
+    log_fmt = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
     logging.basicConfig(level=logging.INFO, format=log_fmt)
 
     # not used in this stub but often useful for finding various files

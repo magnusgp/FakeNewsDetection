@@ -29,7 +29,8 @@ def compute_metrics(eval_pred):
     predictions = np.argmax(predictions, axis=1)
     return accuracy.compute(predictions=predictions, references=labels)
 
-@hydra.main(config_path="config",config_name="config.yaml")
+
+@hydra.main(config_path="config", config_name="config.yaml")
 def train(config):
     id2label = {0: "FAKE", 1: "REAL"}
     label2id = {"FAKE": 0, "REAL": 1}
@@ -42,30 +43,40 @@ def train(config):
     tokenizer = AutoTokenizer.from_pretrained(checkpoint)
 
     data_collator = DataCollatorWithPadding(tokenizer=tokenizer)
-    
-    # Preparing model 
-    #dataset = torch.load('data/processed/dataset.pt')
-    dataset = torch.load('/Users/magnus/Desktop/DTU/5semester/MLOPS/TrueOrFakeNews/data/processed/dataset.pt')
-    trainset = dataset['train']
-    trainset = trainset.remove_columns(["text"]).rename_column('label', "labels").with_format("torch")
-    testset = dataset['test']
-    testset = testset.remove_columns(["text"]).rename_column('label', "labels").with_format("torch")
+
+    # Preparing model
+    # dataset = torch.load('data/processed/dataset.pt')
+    dataset = torch.load(
+        "/Users/magnus/Desktop/DTU/5semester/MLOPS/TrueOrFakeNews/data/processed/dataset.pt"
+    )
+    trainset = dataset["train"]
+    trainset = (
+        trainset.remove_columns(["text"])
+        .rename_column("label", "labels")
+        .with_format("torch")
+    )
+    testset = dataset["test"]
+    testset = (
+        testset.remove_columns(["text"])
+        .rename_column("label", "labels")
+        .with_format("torch")
+    )
     # TODO: remove this, this is only to test the code
     trainset = trainset.select(range(0, 100))
     testset = testset.select(range(0, 100))
 
     training_args = TrainingArguments(
-    output_dir=params["output_dir"],
-    report_to=params["report_to"],
-    run_name=params["run_name"],
-    learning_rate=params["learning_rate"],
-    per_device_train_batch_size=params["per_device_train_batch_size"],
-    per_device_eval_batch_size=params["per_device_eval_batch_size"],
-    num_train_epochs=params["num_train_epochs"],
-    weight_decay=params["weight_decay"],
-    evaluation_strategy=params["evaluation_strategy"],
-    save_strategy=params["save_strategy"],
-    load_best_model_at_end=params["load_best_model_at_end"],
+        output_dir=params["output_dir"],
+        report_to=params["report_to"],
+        run_name=params["run_name"],
+        learning_rate=params["learning_rate"],
+        per_device_train_batch_size=params["per_device_train_batch_size"],
+        per_device_eval_batch_size=params["per_device_eval_batch_size"],
+        num_train_epochs=params["num_train_epochs"],
+        weight_decay=params["weight_decay"],
+        evaluation_strategy=params["evaluation_strategy"],
+        save_strategy=params["save_strategy"],
+        load_best_model_at_end=params["load_best_model_at_end"],
     )
 
     trainer = Trainer(
