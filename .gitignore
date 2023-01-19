@@ -99,5 +99,3 @@ target/
 GcloudKey.json
 
 pyenv.cfg
-
-.github/workflows/docker_app.yml
