@@ -64,8 +64,8 @@ We intend to use some of the pre-trained models from the Transformer framework. 
 
 ### Week 3
 
-* [ ] Check how robust your model is towards data drifting
-* [ ] Setup monitoring for the system telemetry of your deployed model
+* [x] Check how robust your model is towards data drifting
+* [x] Setup monitoring for the system telemetry of your deployed model
 * [ ] Setup monitoring for the performance of your deployed model
 * [ ] If applicable, play around with distributed data loading
 * [ ] If applicable, play around with distributed model training
@@ -73,6 +73,6 @@ We intend to use some of the pre-trained models from the Transformer framework. 
 
 ### Additional
 
-* [ ] Revisit your initial project description. Did the project turn out as you wanted?
-* [ ] Make sure all group members have a understanding about all parts of the project
+* [x] Revisit your initial project description. Did the project turn out as you wanted?
+* [x] Make sure all group members have a understanding about all parts of the project
 * [ ] Uploaded all your code to github
