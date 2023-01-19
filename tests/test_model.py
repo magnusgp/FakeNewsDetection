@@ -1,17 +1,21 @@
 import pytest
 import torch
-from transformers import AutoModelForSequenceClassification
+from transformers import pipeline, AutoTokenizer, AutoModelForSequenceClassification
 
 def test_model():
     # test test
-    checkpoint = "models/checkpoint-30"
+    checkpoint = "models/roberta-base/checkpoint-30"
+    
+    tokenizer = AutoTokenizer.from_pretrained("roberta-base")
 
     dataset = torch.load('data/processed/dataset.pt')
 
     # test that the model outputs the correct shape
-    model = AutoModelForSequenceClassification.from_pretrained(checkpoint, num_labels=2)
-    model.eval()
-    input_ids = dataset['test']['input_ids']
-    attention_mask = dataset['test']['attention_mask']
-    output = model(input_ids, attention_mask=attention_mask)
-    assert output.logits.shape == (100, 2)
+    classify = pipeline("text-classification", model=checkpoint, tokenizer=tokenizer)
+    output = classify("This is a test")
+    
+    # Assert that the model outputs a dictionary
+    assert isinstance(output[0], dict)
+    
+    # Assert that the label that is outputted is either FAKE or REAL
+    assert output[0]["label"] in ["FAKE", "REAL"]
