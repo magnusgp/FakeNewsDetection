@@ -95,3 +95,7 @@ target/
 /wandb
 
 /.dvc/tmp/rwlock.lock
+
+GcloudKey.json
+
+pyenv.cfg
