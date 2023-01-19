@@ -1,0 +1,5 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '--platform linux/amd64', '-f', 'app.Dockerfile', '-t', 'gcr.io/trueorfakenews/cloudapp', '.']
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/trueorfakenews/cloudapp']
