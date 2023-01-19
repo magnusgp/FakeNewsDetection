@@ -384,7 +384,7 @@ We used the Compute Engine to try to run our training scripts. We used cpu-insta
 >
 > Answer:
 
-![my_image](figures/Build_history.png)
+![my_image](figures/build_history.png)
 
 ### Question 22
 
@@ -461,7 +461,7 @@ s204075 (Magnus) still has 100 dollars from his 350 dollar budget. s204158 (Aria
 > *Whenever we commit code and puch to github, it auto triggers ... and ... . From there the diagram shows ...*
 > Answer:
  ![my_image](figures/OverallStructure.png) 
-The starting point of the diagram is the user which can directly authenticate into the cloud, ssh into a given instance, and train the model. The user can then follow their progress through weights and biases and retrieve the data  from either the cloud or WaB. The user can also push their own code to github and the respective container to the cloud. This can be done the fast way using a trigger or manually. A new instance can then be created from the costume container so as to be used for training. The container can also be used for deployment after its creation is triggered.
+The starting point of the diagram is the user which can directly authenticate into the cloud, ssh into a given instance, and train the model. The user can then follow their progress through weights and biases and retrieve the data from either the cloud or wandb. The user can also push their own code to github and the respective container to the cloud. This can be done the fast way using a trigger or manually. The trigger is implemented using a webhook directly in GitHub, that detects whenever a new push is made to the main branch. Then, the webhook pings the Google Cloud Run service, making it build a new docker image and then deploying it. Locally, theapp can be deployed directly without an image using uvicorn or using a Docker image. A new instance can then be created from the costum container so as to be used for training. When a training is done, its outputs will be monitored using wandb, making it easy to track training accuracy and evaluation loss. The trained model can be pulled back to the user again to be deployed localy.
 
 ### Question 26
 
