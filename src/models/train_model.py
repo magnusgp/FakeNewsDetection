@@ -47,7 +47,8 @@ def train(config):
 
     # Preparing model
     # dataset = torch.load('data/processed/dataset.pt')
-    dataset = torch.load(r"{}/data/processed/dataset.csv".format(os.chdir(os.chdir(os.chdir(os.chdir(os.getcwd()))))))
+    print(r"{}/data/processed/dataset.csv".format(os.chdir(os.abspath(os.abspath(os.abspath(os.abspath()))))))
+    dataset = torch.load(r"{}/data/processed/dataset.csv".format(os.chdir(os.abspath(os.abspath(os.abspath(os.abspath()))))))
     trainset = dataset["train"]
     trainset = (
         trainset.remove_columns(["text"])
