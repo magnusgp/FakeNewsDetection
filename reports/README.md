@@ -427,6 +427,7 @@ s204075 (Magnus) still has 100 dollars from his 350 dollar budget. s204158 (Aria
 > *Whenever we commit code and puch to github, it auto triggers ... and ... . From there the diagram shows ...*
 >
 > Answer:
+> ![my_image](figures/OverallStructure.png)
 
 --- question 25 fill here ---
 
