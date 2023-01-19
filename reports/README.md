@@ -255,6 +255,9 @@ Furthermore, to run the unittests written for the project locally, one would run
 > *one would have to do ...*
 >
 > Answer:
+> Experiments are specified in the src/models/config/experiments folder, and one should
+> simply add a new yaml file to create a new experience. Experiments variables are then
+> documented in the yaml files. 
 
 --- question 13 fill here ---
 
@@ -287,6 +290,10 @@ Furthermore, to run the unittests written for the project locally, one would run
 > *training docker image: `docker run trainer:latest lr=1e-3 batch_size=64`. Link to docker file: <weblink>*
 >
 > Answer:
+> We have developed two docker files. One for training and the other for deployment and inference.
+> To run the training docker image one should run "docker run training.Dockerfile".
+> The command is "docker run app.Dockerfile" for the other file. 
+
 
 --- question 15 fill here ---
 
@@ -302,6 +309,8 @@ Furthermore, to run the unittests written for the project locally, one would run
 > *run of our main code at some point that showed ...*
 >
 > Answer:
+> Debugging method was dependent on group member. Some just used VS code's python debugger
+> while others used pycharms debugger. (NEED MORE)
 
 --- question 16 fill here ---
 
@@ -319,6 +328,10 @@ Furthermore, to run the unittests written for the project locally, one would run
 > *We used the following two services: Engine and Bucket. Engine is used for... and Bucket is used for...*
 >
 > Answer:
+> Compute engine: For running the training scripts. 
+> Vertex AI: Very limited and only experimentally. 
+> Cloud storage: For storing datasets. 
+> Container registry: For storing the containers. 
 
 --- question 17 fill here ---
 
@@ -334,6 +347,11 @@ Furthermore, to run the unittests written for the project locally, one would run
 > *using a custom container: ...*
 >
 > Answer:
+> We used the compute engine to run our training scripts. 
+> We used cpu-instances using our costume container image and pytorch pre-installed. 
+> Unfortunately we missed access to the project after the 50 dollars was used. 
+> We did not train the models on the compute engine, but we know that it's possible
+> if the models run locally and a docker image is created from the machine.
 
 --- question 18 fill here ---
 
@@ -406,6 +424,9 @@ Furthermore, to run the unittests written for the project locally, one would run
 > *costing the most was ... due to ...*
 >
 > Answer:
+> s204075(Magnus) still has 100 dollars from his 350 dollar budget. 
+> s204158(Arian) used all of his 50 dollars. 
+> A lot of the money spent was used on the old mlops project from the exercises.
 
 --- question 24 fill here ---
 
@@ -441,6 +462,10 @@ Furthermore, to run the unittests written for the project locally, one would run
 > *The biggest challenges in the project was using ... tool to do ... . The reason for this was ...*
 >
 > Answer:
+> 
+> Cloud computing was certainly a part of the project that took an overwhelming amount of
+> time. <TO BE CONTINUED>
+> 
 
 --- question 26 fill here ---
 
@@ -458,5 +483,11 @@ Furthermore, to run the unittests written for the project locally, one would run
 > *All members contributed to code by...*
 >
 > Answer:
+> 
+> s204158(Arian) worked with getting the scripts related to generating the data. He also 
+> attempted to get the model training on the gcloud using our costume container. 
+> <TO BE CONTINUED> 
+> 
+> 
 
 --- question 27 fill here ---
