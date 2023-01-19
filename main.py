@@ -1,8 +1,6 @@
 # Load the libraries
 from fastapi import FastAPI, HTTPException
 from transformers import pipeline, AutoTokenizer, AutoModelForSequenceClassification
-from joblib import load
-import os
 from fastapi.responses import HTMLResponse
 
 # Load the model

@@ -17,6 +17,6 @@ jobs:
     - name: Build the Docker image
       run: |
         docker build . --file app.Dockerfile \
-          --tag cloudapp gcr.io/trueorfakenews/cloudapp \
+          --tag cloudapp gcr.io/trueorfakenews/cloudapp
         docker push cloudapp gcr.io/trueorfakenews/cloudapp
 
