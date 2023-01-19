@@ -64,11 +64,22 @@ def train(config):
     # TODO: remove this, this is only to test the code
     trainset = trainset.select(range(0, 100))
     testset = testset.select(range(0, 100))
-    
+
     # test/assert that the params are of correct type
-    stringparams = ["output_dir", "report_to", "run_name", "evaluation_strategy", "save_strategy"]
+    stringparams = [
+        "output_dir",
+        "report_to",
+        "run_name",
+        "evaluation_strategy",
+        "save_strategy",
+    ]
     floatparams = ["learning_rate", "weight_decay"]
-    intparams = ["per_device_train_batch_size", "per_device_eval_batch_size", "num_train_epochs", "load_best_model_at_end"]
+    intparams = [
+        "per_device_train_batch_size",
+        "per_device_eval_batch_size",
+        "num_train_epochs",
+        "load_best_model_at_end",
+    ]
     for param in params:
         if param in stringparams:
             assert isinstance(params[param], str), f"{param} must be a string"
