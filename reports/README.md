@@ -124,7 +124,7 @@ Furthermore, to run the unittests written for the project locally, one would run
 >
 > Answer:
 
-We did not attempt to systematically standardize the code, however we did follow our intuition in writing aesthetically. We do however strongly believe in code quality, and the reason we did not emphasize it in our project is perhaps being in a rush to work with other important exercises. However, as one of the last parts of cleaning up our project ,we ran some code formatting on our essential files to make sure that they comply with good coding practices.
+We did not attempt to systematically standardize the code, however we did follow our intuition in writing aesthetically. We do however strongly believe in code quality, and the reason we did not emphasize it in our project is perhaps being in a rush to work with other important exercises. However, as one of the last parts of cleaning up our project ,we ran some code formatting on our essential files to make sure that they comply with good coding practices. In this regard we used the isort package as well as the black package.
 
 
 ## Version control
@@ -136,9 +136,9 @@ We did not attempt to systematically standardize the code, however we did follow
 
 > **How many tests did you implement?**
 >
-> Answer:
+> Answer: 
 
---- question 7 fill here ---
+*We implemented 7 tests in total covering the making of the dataset as well as the output of the model*
 
 ### Question 8
 
@@ -153,7 +153,7 @@ We did not attempt to systematically standardize the code, however we did follow
 >
 > Answer:
 
---- question 8 fill here ---
+*The total code coverage of code is 98% of our test files. We are far from 100% coverage on our source files. However, the tests in the test files indirectly test that the source files are correct. This is evident from the specific tests that we perform. Even if we had 100% coverage of all files, then we would not be certain that our code is error free, this is due to the fact that just because we test every line of code, it does not mean that it actually is working as it should.*
 
 ### Question 9
 
@@ -198,9 +198,10 @@ We did use DVC to upload the data to the cloud, however we had a lot of problems
 > *We have organized our CI into 3 separate files: one for doing ..., one for running ... testing and one for running*
 > *... . In particular for our ..., we used ... .An example of a triggered workflow can be seen here: <weblink>*
 >
-> Answer:
+> Answer: (TO_DO UDFYLD RESTEN)
 
---- question 11 fill here ---
+We have set up continuous integration for the unittesting of our code, meaning that the pytest package will run all tests inside the ‘tests’ directory everytime a push is made to the main branch. Furthermore, whenever a push is made with the push tag ‘building’, a docker image will be built in the Google Cloud container registry. The pytests make use of caching, as it would otherwise take a very long time to install all requirements needed to run the tests from requirements.txt. Besides the testing and the docker building, we have not been able to set up additional CI such as linting, which would have been preferred. We have tried formatting our code and making it flake8 compliant manually, which could be made into a CI workflow, but the timeframe for this project did not allow us to explore this.
+
 
 ## Running code and tracking experiments
 
@@ -232,7 +233,7 @@ We had a single hydra file in src/models/config with a single experiment. The sc
 > *We made use of config files. Whenever an experiment is run the following happens: ... . To reproduce an experiment*
 > *one would have to do ...*
 >
-> Answer:
+> Answer: 
 
 When running our experiments, we made use of hydra config file. Whenever we run an experiment, we would either change the hyperparameters in the default config file or add a new config file for a certain setting. Experiments are specified in the src/models/config/experiments folder, and in order to reproduce an experiment one should use the default experiment file. Experiments variables are then documented in the yaml files. To create a new experiment with a new run configuration, one would create a new run<run_number>.yaml file and set the hyperparameters as desired.
 
@@ -253,7 +254,13 @@ When running our experiments, we made use of hydra config file. Whenever we run 
 We used Weights and biases to track both our training and test process (regarding the model). Additionally, the system was tracked - referring to process memory, disk utilization and network trafficking. 
 In the first image, you can see the evaluation of our model. 
  
-This shows (see the light blue line) that our accuracy grew as our loss fell (quite naturally). Furthermore, we see that the accuracy is starting to flatten ou 
+This shows (see the light blue line) that our accuracy grew as our loss fell (quite naturally). Furthermore, we see that the accuracy is starting to flatten out, but the loss remains falling with a high rate - from this it becomes clear that further evaluation (with more epochs) could have been beneficial. 
+On the second image the training loss is shown. 
+
+This shows a general tendency of decreasing loss, but it fluctuates quite a lot from step to step. The fluctuations could be decreased by using a larger batchsize. 
+The last image shows an overview of the system which processed the training and evaluation of our model. 
+
+From this we can gather a general understanding of the power which it takes to run a deep learning model of our caliber. Although high fluctuations appear in the overview of the process memory, a general tendency shows the availability and memory in use (both in procent and MB). 
 
 --- question 14 fill here ---
 
@@ -271,9 +278,14 @@ This shows (see the light blue line) that our accuracy grew as our loss fell (qu
 > Answer:
 > 
 
->We have developed two docker files. One for training and the other for deployment and >inference. 
->To run the training docker image one should run "docker run training.Dockerfile". 
->The command is "docker run app.Dockerfile" for the other file. 
+We have developed two docker files. The first one, training.Dockerfile, is used for training the model using the processed dataset (dataset.pt). When run, the model should train itself and output the saved checkpoints to the models/roberta-base directory. The other dockerfile, app.Dockerfile, is used for deployment and inference. This deployment can both work locally as well as in Google Cloud using the Cloud Run service. 
+To run the training docker image, one should run 
+```docker run training:latest``` 
+To run the application image, one should run
+```docker run app:latest```
+
+The training dockerfile can be found here:
+[a relative link](training.Dockerfile)
 
 ### Question 16
 
@@ -289,7 +301,7 @@ This shows (see the light blue line) that our accuracy grew as our loss fell (qu
 > Answer:
 > 
 
-Debugging method was dependent on group member. Some just used VS code's python debugger while others used pycharms debugger. (NEED MORE)
+Debugging method was dependent on group members. Some just used VS code's python debugger while others used Pycharms debugger. Debugging in both VS code and Pycharm was done to fully understand the current value of both models and data - in the process of loading data, the VS code debugger helped us understand both the shape, value and type of the data, which was a huge helped when trying to rework and split the data into training and testing sets. Furthermore, we started with a csv-file and ended with a serialized pytorch model (dataset.pt), which needed a lot of debugging and reworking. 
 
 ## Working in the cloud
 
@@ -326,7 +338,7 @@ Container registry: Used for storing the containers used in the project. Here, w
 > Answer:
 > 
 
-We used the compute engine to run our training scripts. We used cpu-instances using our custom container image and pytorch pre-installed. Unfortunately we missed access to the project where we would run our training script after the 50 dollars was used. We did not train the models on the compute engine, but we know that it's possible if the, but we could still work with cloud on the account that had $350 worth of credits. Instead we found a solution in letting the models run locally and then build a docker image from the local machine.
+We used the compute engine to try to run our training scripts. We used cpu-instances using our custom container image and pytorch pre-installed of the type ‘n1-standard-1’ and the CPU platform ‘Intel Haswell’. Unfortunately we lost our access to the project where we would run our training script after the 50 dollars was used. We did not train the models on the compute engine, but we know that it's possible if the, but we could still work with cloud on the account that had $350 worth of credits. Instead we found a solution in letting the models run locally and then build a docker image from the local machine. We also tried to directly pull the repository from git inside a VM instance and run it from there, but it did not yield any results. 
 
 ### Question 19
 
@@ -371,13 +383,16 @@ We used the compute engine to run our training scripts. We used cpu-instances us
 
 First, we deployed our model locally using FastAPI. This worked great and the API would guide the user to input a text promt and then do inference based on that. Then, we tried to deploy it using google cloud, but we again ran into problems pulling the correct checkpoint for the inference model. Instead, we built the docker file locally and pushed it to the container registry, which then served as the image that the cloud run serve ran. While the cloud run was successfully able to access our application from the image, we found out that it was the wrong image with the old API, which therefore did not include the guiding to the text promt and we could not do inference using it, even though it should work. 
 \
-To invoke the service locally, one would call
+To invoke the service locally, one would call this with a json file containing the input prompt:
 ```curl -X 'POST' \
-  'http://127.0.0.1:8000/predict_if_fake_news/?text_message=@text_message.json\
+  'http://127.0.0.1:8000/predict_if_fake_news/?text_message=@text_message.json’ \
   -H 'accept: application/json' \
   -d ''
 ```
-In order to invoke the service served on cloud run, one would access the hyperlink <https://app-lj4fkog2eq-ew.a.run.app>
+In order to invoke the service served on cloud run, one would access the hyperlink <https://app-lj4fkog2eq-ew.a.run.app> or call:
+```curl -X 'POST' \
+  'https://app-lj4fkog2eq-ew.a.run.app
+```
 
 ### Question 23
 
@@ -392,7 +407,7 @@ In order to invoke the service served on cloud run, one would access the hyperli
 >
 > Answer:
 
---- question 23 fill here ---
+We used monitoring through the google cloud services. The alerting function was used to send an alert to a given mail of the log entries on the project. Further types of alerting or monitoring could have been added, but wasn't due to time limitations. We didn't utilize the Signoz package to visualize the telemetry data from our api, which could have been beneficial for a general overview. Additionally, input monitoring of the api could have been quite interesting (as this could be informative if an api was later used for a model which could be accessed by the general public). In general, further monitoring of the performance of the model deployed to our API could have been interesting - especially loss and accuracy. 
 
 ### Question 24
 
@@ -427,18 +442,10 @@ s204075 (Magnus) still has 100 dollars from his 350 dollar budget. s204158 (Aria
 > *Whenever we commit code and puch to github, it auto triggers ... and ... . From there the diagram shows ...*
 >
 > Answer:
-> ![my_image](figures/OverallStructure.png)
-> The starting point of the diagram is the user which can directly authenticate
-> into the cloud, ssh into a given instance, and train the model. The user can
-> then follow their progress through weights and biases and retrieve the data
-> from either the cloud or WaB. 
-> The user can also push their own code to github and the respective container to
-> the cloud. This can be done the fast way using a trigger or manually. 
-> A new instance can then be created from the costume container so as to be used
-> for training. 
-> The container can also be used for deployment after its creation is triggered. 
+>
 
---- question 25 fill here ---
+![my_image](figures/OverallStructure.png) 
+The starting point of the diagram is the user which can directly authenticate into the cloud, ssh into a given instance, and train the model. The user can then follow their progress through weights and biases and retrieve the data  from either the cloud or WaB. The user can also push their own code to github and the respective container to the cloud. This can be done the fast way using a trigger or manually. A new instance can then be created from the costume container so as to be used for training. The container can also be used for deployment after its creation is triggered.
 
 ### Question 26
 
