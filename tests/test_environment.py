@@ -7,6 +7,7 @@ REQUIRED_PYTHON = "python3"
 
 @pytest.mark.skipif(sys.version_info.major != 3, reason="Requires Python 3")
 def test_environment():
+    # test the python version
     system_major = sys.version_info.major
     assert system_major in [2, 3], "Unrecognized Python version: {}".format(sys.version)
 
@@ -15,6 +16,7 @@ def test_environment():
     elif REQUIRED_PYTHON == "python3":
         required_major = 3
 
+    # assert that the python version is the required version
     assert (
         system_major == required_major
     ), "This project requires Python {}. Found: Python {}".format(
