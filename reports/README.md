@@ -428,6 +428,15 @@ s204075 (Magnus) still has 100 dollars from his 350 dollar budget. s204158 (Aria
 >
 > Answer:
 > ![my_image](figures/OverallStructure.png)
+> The starting point of the diagram is the user which can directly authenticate
+> into the cloud, ssh into a given instance, and train the model. The user can
+> then follow their progress through weights and biases and retrieve the data
+> from either the cloud or WaB. 
+> The user can also push their own code to github and the respective container to
+> the cloud. This can be done the fast way using a trigger or manually. 
+> A new instance can then be created from the costume container so as to be used
+> for training. 
+> The container can also be used for deployment after its creation is triggered. 
 
 --- question 25 fill here ---
 
