@@ -5,12 +5,25 @@ import pytest
 import torch
 
 
-@pytest.mark.skipif(not os.path.exists('data/processed/trainset.pt'), reason="Training files not found")
-@pytest.mark.skipif(not os.path.exists('data/processed/testset.pt'), reason="Training files not found")
+@pytest.mark.skipif(not os.path.exists('data/processed/dataset.pt'), reason="Training files not found")
 def test_data():
     # load data from data/processed folder with pytorch
-    trainset = torch.load('data/processed/trainset.pt')
-    testset = torch.load('data/processed/testset.pt')
+    dataset = torch.load(
+        "processed/dataset.pt"
+    )
+
+    trainset = dataset["train"]
+    trainset = (
+        trainset.remove_columns(["text"])
+        .rename_column("label", "labels")
+        .with_format("torch")
+    )
+    testset = dataset["test"]
+    testset = (
+        testset.remove_columns(["text"])
+        .rename_column("label", "labels")
+        .with_format("torch")
+    )
     
     # check that the training and test sets are not empty
     assert trainset.size() != 0, "Training set is empty"
