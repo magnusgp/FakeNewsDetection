@@ -384,7 +384,7 @@ We used the Compute Engine to try to run our training scripts. We used cpu-insta
 >
 > Answer:
 
-![my_image](figures/build_history.png)
+![my_image](figures/Build_history.png)
 
 ### Question 22
 
