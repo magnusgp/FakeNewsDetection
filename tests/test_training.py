@@ -5,8 +5,6 @@ import torch
 from torch import nn, optim
 from tqdm import tqdm
 
-from src.models.model import Model
-
 
 #@pytest.mark.skipif(not os.path.exists('data/processed/dataset.pt'), reason="Training files not found")
 # currently skipping these tests because they are not working
