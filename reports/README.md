@@ -269,16 +269,18 @@ When running our experiments, we made use of the hydra config file. Whenever we 
 > *As seen in the second image we are also tracking ... and ...*
 >
 > Answer:
+>
+ 
 We used Weights and biases to track both our training and test process (regarding the model). Additionally, the system was tracked - referring to process memory, disk utilization and network trafficking. 
-In the first image, you can see the evaluation of our model. 
+In the first image, you can see the evaluation of our model. \
 ![my_image](figures/wandb.png)
  
 This shows (see the light blue line) that our accuracy grew as our loss fell (quite naturally). Furthermore, we see that the accuracy is starting to flatten out, but the loss remains falling with a high rate - from this it becomes clear that further evaluation (with more epochs) could have been beneficial. 
-On the second image the training loss is shown. 
+On the second image the training loss is shown. \
 ![my_image](figures/wandb2.png)
 
 This shows a general tendency of decreasing loss, but it fluctuates quite a lot from step to step. The fluctuations could be decreased by using a larger batchsize. 
-The last image shows an overview of the system which processed the training and evaluation of our model. 
+The last image shows an overview of the system which processed the training and evaluation of our model. \
 ![my_image](figures/wandb3.png)
 
 From this we can gather a general understanding of the power which it takes to run a deep learning model of our caliber. Although high fluctuations appear in the overview of the process memory, a general tendency shows the availability and memory in use (both in procent and MB). 
