@@ -29,6 +29,7 @@ def makedata(input_filepath, output_filepath):
     if "{}/dataset.csv".format(input_filepath) not in input_filepath:
         editcsv()
 
+    print("{}/raw/dataset.csv".format(os.getcwd()))
     dataset = load_dataset("csv", data_files="{}/raw/dataset.csv".format(os.getcwd()))[
         "train"
     ]
