@@ -14,7 +14,7 @@ def editcsv():
     csv_input = pd.concat([csv_fake, csv_true])
     # delete the title, subject and date columns
     csv_input.drop(["title", "subject", "date"], axis=1, inplace=True)
-
+    # Save the merged file
     csv_input.to_csv(r"data\raw\dataset.csv", index=False)
 
 
