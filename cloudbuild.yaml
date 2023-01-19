@@ -1,5 +1,5 @@
 steps:
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'gcr.io/concrete-flare-374308/training', '.']
+  args: ['build', '--platform=linux/amd64', '-f', 'training.Dockerfile', '-t', 'gcr.io/trueorfakenews/training', '.']
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'gcr.io/concrete-flare-374308/training']
+  args: ['push', 'gcr.io/trueorfakenews/training']

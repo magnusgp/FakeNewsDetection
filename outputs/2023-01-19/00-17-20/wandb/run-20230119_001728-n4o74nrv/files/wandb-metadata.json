@@ -1,0 +1,41 @@
+{
+    "os": "macOS-10.16-x86_64-i386-64bit",
+    "python": "3.8.2",
+    "heartbeatAt": "2023-01-18T23:17:28.763048",
+    "startedAt": "2023-01-18T23:17:28.001952",
+    "docker": null,
+    "cuda": null,
+    "args": [],
+    "state": "running",
+    "program": "src/models/train_model.py",
+    "git": {
+        "remote": "https://github.com/magnusgp/FakeNewsDetection",
+        "commit": "156c7b4889efa7df2dde739fd65cd68664625cfe"
+    },
+    "email": "s204075@student.dtu.dk",
+    "root": "/Users/magnus/Desktop/DTU/5semester/MLOPS/TrueOrFakeNews",
+    "host": "magnusmac.local",
+    "username": "magnus",
+    "executable": "/Users/magnus/Desktop/DTU/5semester/MLOPS/TrueOrFakeNews/newsenv/bin/python3",
+    "cpu_count": 10,
+    "cpu_count_logical": 10,
+    "cpu_freq": {
+        "current": 2400,
+        "min": 2400,
+        "max": 2400
+    },
+    "cpu_freq_per_core": [
+        {
+            "current": 2400,
+            "min": 2400,
+            "max": 2400
+        }
+    ],
+    "disk": {
+        "total": 926.3517189025879,
+        "used": 19.159523010253906
+    },
+    "memory": {
+        "total": 16.0
+    }
+}
