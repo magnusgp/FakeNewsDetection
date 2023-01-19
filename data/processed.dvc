@@ -1,0 +1,5 @@
+outs:
+- md5: afb1a0614b490fbe8136a995698a8913.dir
+  size: 4044
+  nfiles: 2
+  path: processed

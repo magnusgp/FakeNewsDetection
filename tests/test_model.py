@@ -1,7 +1,9 @@
 import pytest
 import torch
 from transformers import pipeline, AutoTokenizer, AutoModelForSequenceClassification
+import os
 
+@pytest.mark.skipif(not os.path.exists('data/processed/dataset.pt'), reason="Training files not found")
 def test_model():
     # test test
     checkpoint = "models/roberta-base/checkpoint-30"
