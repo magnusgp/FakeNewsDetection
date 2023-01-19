@@ -10,5 +10,5 @@ RUN pip install transformers
 COPY main.py main.py
 COPY /models /models
 # Use uvicorn as the entrypoint
-EXPOSE 8080
+EXPOSE 8501
 CMD exec uvicorn main:app --port $PORT --host 0.0.0.0 --workers 1
