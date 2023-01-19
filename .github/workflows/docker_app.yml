@@ -16,7 +16,7 @@ jobs:
         password: ${{ secrets.DOCKER_HUB_TOKEN }}
     - name: Build the Docker image
       run: |
-        docker build --file app.Dockerfile . \
-          --tag cloudapp gcr.io/trueorfakenews/cloudapp
-        docker push cloudapp gcr.io/trueorfakenews/cloudapp:latest
+        docker build --f app.Dockerfile . --t cloudapp:latest
+        docker tag cloudapp gcr.io/trueorfakenews/cloudapp
+        docker push cloudapp gcr.io/trueorfakenews/cloudapp
 
