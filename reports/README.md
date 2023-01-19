@@ -125,7 +125,9 @@ Furthermore, to run the unittests written for the project locally, one would run
 >
 > Answer:
 
---- question 6 fill here ---
+*We decided to use the code formatter package black to organize our code as well as the isort package to organize our imports. 
+Essentially, these packages help make the code more readable, which is a benefit both when sharing the project with others and during development, because
+it will make it easier for other group members to understand the code that one has written. However, the latter was not fully utilized during our project, because we did not remember to implement these rules for gode formatting and quality from the very start of the project.*
 
 ## Version control
 
