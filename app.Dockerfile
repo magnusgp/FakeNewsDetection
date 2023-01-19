@@ -1,6 +1,8 @@
 # Use Python37
 FROM python:3.9-slim
 # Copy requirements.txt to the docker image and install packages
+EXPOSE 8501
+WORKDIR /
 COPY requirements.txt requirements.txt
 RUN pip install fastapi
 RUN pip install uvicorn
@@ -8,8 +10,5 @@ RUN pip install transformers
 # Set the WORKDIR to be the folder
 COPY main.py main.py
 COPY /models /models
-# Expose port 8080
-WORKDIR /
 # Use uvicorn as the entrypoint
-CMD exec uvicorn main:app --port $PORT --host 0.0.0.0 --workers 1
-
+CMD exec uvicorn simple_app:app --port $PORT --host 0.0.0.0 --workers 1
