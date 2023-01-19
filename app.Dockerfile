@@ -1,7 +1,6 @@
 # Use Python37
 FROM python:3.9-slim
 # Copy requirements.txt to the docker image and install packages
-EXPOSE 8501
 WORKDIR /
 COPY requirements.txt requirements.txt
 RUN pip install fastapi
