@@ -1,4 +1,5 @@
-![example workflow](https://github.com/magnusgp/FakeNewsDetection/actions/workflows/tests.yml/badge.svg)
+[![Run tests](https://github.com/magnusgp/FakeNewsDetection/actions/workflows/tests.yml/badge.svg)](https://github.com/magnusgp/FakeNewsDetection/actions/workflows/tests.yml)
+[![Run isort](https://github.com/magnusgp/FakeNewsDetection/actions/workflows/isort.yml/badge.svg)](https://github.com/magnusgp/FakeNewsDetection/actions/workflows/isort.yml)
 
 Arian Dapouyeh (s204158)\
 Benjamin Fazal (s200431)\
