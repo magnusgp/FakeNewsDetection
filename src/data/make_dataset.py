@@ -8,6 +8,7 @@ from csveditor import editcsv
 from datasets import load_dataset
 from dotenv import find_dotenv, load_dotenv
 from transformers import AutoTokenizer
+import os
 
 MAX_LEN = 256
 MODEL_NAME = "roberta-base"
@@ -28,7 +29,7 @@ def makedata(input_filepath, output_filepath):
     if "{}/dataset.csv".format(input_filepath) not in input_filepath:
         editcsv()
 
-    dataset = load_dataset("csv", data_files="{}dataset.csv".format(input_filepath))[
+    dataset = load_dataset("csv", data_files="{}/raw/dataset.csv".format(os.getcwd()))[
         "train"
     ]
 
