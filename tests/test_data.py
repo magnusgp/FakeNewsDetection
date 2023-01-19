@@ -9,7 +9,7 @@ import torch
 def test_data():
     # load data from data/processed folder with pytorch
     dataset = torch.load(
-        "processed/dataset.pt"
+        "data/processed/dataset.pt"
     )
 
     trainset = dataset["train"]
@@ -26,16 +26,13 @@ def test_data():
     )
     
     # check that the training and test sets are not empty
-    assert trainset.size() != 0, "Training set is empty"
-    assert testset.size() != 0, "Test set is empty"
-    
-    # check that the input data is a string of text inside of a tensor
-    assert isinstance(trainset[0][0], torch.Tensor), "Input data is not a tensor"
+    assert len(trainset) > 0, "Training set is empty"
+    assert len(testset) > 0, "Test set is empty"
     
     # assert that there are both true and fake labels in the training and test sets
     # get all labels from the training and test sets
-    train_labels = [trainset[i][1].item() for i in range(len(trainset))]
-    test_labels = [testset[i][1].item() for i in range(len(testset))]
+    train_labels = [trainset[i]['labels'] for i in range(len(trainset))]
+    test_labels = [testset[i]['labels'] for i in range(len(testset))]
     
     labels = [0, 1]
     
@@ -44,3 +41,5 @@ def test_data():
         assert label in test_labels, "Test set does not contain label {}".format(label)
     
     
+if __name__ == '__main__':
+    test_data()
