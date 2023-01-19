@@ -1,7 +1,6 @@
 import os
 
 import pytest
-import torch
 from transformers import AutoModelForSequenceClassification, AutoTokenizer, pipeline
 
 
@@ -9,12 +8,9 @@ from transformers import AutoModelForSequenceClassification, AutoTokenizer, pipe
     not os.path.exists("data/processed/dataset.pt"), reason="Training files not found"
 )
 def test_model():
-    # test test
+    # load the model from the checkpoint
     checkpoint = "models/roberta-base/checkpoint-30"
-
     tokenizer = AutoTokenizer.from_pretrained("roberta-base")
-
-    dataset = torch.load("data/processed/dataset.pt")
 
     # test that the model outputs the correct shape
     classify = pipeline("text-classification", model=checkpoint, tokenizer=tokenizer)

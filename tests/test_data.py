@@ -1,6 +1,5 @@
 import os.path
 
-import numpy as np
 import pytest
 import torch
 
@@ -12,6 +11,7 @@ def test_data():
     # load data from data/processed folder with pytorch
     dataset = torch.load("data/processed/dataset.pt")
 
+    # create the train and test sets from the dataset
     trainset = dataset["train"]
     trainset = (
         trainset.remove_columns(["text"])
