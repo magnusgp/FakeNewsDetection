@@ -152,7 +152,7 @@ We did not attempt to systematically standardize the code, however we did follow
 >
 > Answer: 
 
-We implemented 7 tests in total covering the making of the dataset as well as the output of the model. We also made development tests to check if the user is running a version of python that is compliant with our project.
+We implemented 7 tests in total covering the making of the dataset as well as the output of the model. We also made development tests to check if the user is running a version of python that is compliant with our project. These tests is implemented in order to make sure that the code is running as intended and that the code is not breaking when new features are added.
 
 ### Question 8
 
@@ -253,7 +253,7 @@ We had a single hydra file in src/models/config with a single experiment. The sc
 >
 > Answer: 
 
-When running our experiments, we made use of the hydra config file. Whenever we run an experiment, we would either change the hyperparameters in the default config file or add a new config file for a certain setting. Experiments are specified in the src/models/config/experiments folder, and in order to reproduce an experiment one should use the default experiment file. Experiments variables are then documented in the yaml files. To create a new experiment with a new run configuration, one would create a new run<run_number>.yaml file and set the hyperparameters as desired.
+When running our experiments, we made use of the hydra config file. Whenever we run an experiment, we would either change the hyperparameters in the default config file or add a new config file for a certain setting. Experiments are specified in the src/models/config/experiments folder, and in order to reproduce an experiment one should use the default experiment file. Experiments variables are then documented in the yaml files. To create a new experiment with a new run configuration, one would create a new run<run_number>.yaml file and set the hyperparameters as desired. These configurations are then used in the train_model.py file to run the experiment.
 
 ### Question 14
 
@@ -269,16 +269,18 @@ When running our experiments, we made use of the hydra config file. Whenever we 
 > *As seen in the second image we are also tracking ... and ...*
 >
 > Answer:
+>
+ 
 We used Weights and biases to track both our training and test process (regarding the model). Additionally, the system was tracked - referring to process memory, disk utilization and network trafficking. 
-In the first image, you can see the evaluation of our model. 
+In the first image, you can see the evaluation of our model. \
 ![my_image](figures/wandb.png)
  
 This shows (see the light blue line) that our accuracy grew as our loss fell (quite naturally). Furthermore, we see that the accuracy is starting to flatten out, but the loss remains falling with a high rate - from this it becomes clear that further evaluation (with more epochs) could have been beneficial. 
-On the second image the training loss is shown. 
+On the second image the training loss is shown. \
 ![my_image](figures/wandb2.png)
 
 This shows a general tendency of decreasing loss, but it fluctuates quite a lot from step to step. The fluctuations could be decreased by using a larger batchsize. 
-The last image shows an overview of the system which processed the training and evaluation of our model. 
+The last image shows an overview of the system which processed the training and evaluation of our model. \
 ![my_image](figures/wandb3.png)
 
 From this we can gather a general understanding of the power which it takes to run a deep learning model of our caliber. Although high fluctuations appear in the overview of the process memory, a general tendency shows the availability and memory in use (both in procent and MB). 
@@ -297,7 +299,7 @@ From this we can gather a general understanding of the power which it takes to r
 > Answer:
 > 
 
-We have developed two docker files. The first one, training.Dockerfile, is used for training the model using the processed dataset (dataset.pt). When run, the model should train itself and output the saved checkpoints to the models/roberta-base directory. The other dockerfile, app.Dockerfile, is used for deployment and inference. This deployment can both work locally as well as in Google Cloud using the Cloud Run service. 
+We have developed two docker files. The first one, training.Dockerfile, is used for training the model using the processed dataset (dataset.pt). When run, the model should train itself and output the saved checkpoints to the models/roberta-base directory. The other dockerfile, app.Dockerfile, is used for deployment and inference. This deployment can both work locally as well as in Google Cloud using the Cloud Run service with an automatic trigger or by manual upload. 
 To run the training docker image, one should run 
 ```docker run training:latest``` 
 To run the application image, one should run
@@ -384,7 +386,7 @@ We used the Compute Engine to try to run our training scripts. We used cpu-insta
 >
 > Answer:
 
-![my_image](figures/build_history.png)
+![my_image](figures/buildhistory.png)
 
 ### Question 22
 
@@ -461,7 +463,7 @@ s204075 (Magnus) still has 100 dollars from his 350 dollar budget. s204158 (Aria
 > *Whenever we commit code and puch to github, it auto triggers ... and ... . From there the diagram shows ...*
 > Answer:
  ![my_image](figures/OverallStructure.png) 
-The starting point of the diagram is the user which can directly authenticate into the cloud, ssh into a given instance, and train the model. The user can then follow their progress through weights and biases and retrieve the data  from either the cloud or WaB. The user can also push their own code to github and the respective container to the cloud. This can be done the fast way using a trigger or manually. A new instance can then be created from the costume container so as to be used for training. The container can also be used for deployment after its creation is triggered.
+The starting point of the diagram is the user which can directly authenticate into the cloud, ssh into a given VM instance created earlier with an appropriate image family (such as pytorch), and train the model. The user can then follow their progress through weights and biases and retrieve the data from either the cloud or wandb. The user can also push their own code to github and the respective container to the cloud. This can be done the fast way using a trigger or manually. The trigger is implemented using a webhook directly in GitHub, that detects whenever a new push is made to the main branch. Then, the webhook pings the Google Cloud Run service, making it build a new docker image and then deploying it. Locally, theapp can be deployed directly without an image using uvicorn or using a Docker image. A new instance can then be created from the costum container so as to be used for training. When a training is done, its outputs will be monitored using wandb, making it easy to track training accuracy and evaluation loss. The trained model can be pulled back to the user again to be deployed localy.
 
 ### Question 26
 
