@@ -92,7 +92,7 @@ def train(config):
         data_collator=data_collator,
         compute_metrics=compute_metrics,
     )
-
+    print("So far so good.")
     trainer.train()
 
 
